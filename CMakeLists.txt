@@ -57,7 +57,7 @@ list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
 
 list(APPEND TEST_FILES tests/rename_this_test_file.cc)
 
-add_executable(train-model apps/train_model_main.cc ${CORE_SOURCE_FILES})
+add_executable(train-model apps/train_model_main.cc ${CORE_SOURCE_FILES} src/core/image.cpp include/core/image.h src/core/model.cpp include/core/model.h)
 target_include_directories(train-model PRIVATE include)
 
 ci_make_app(
