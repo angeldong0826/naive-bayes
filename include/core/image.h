@@ -2,11 +2,14 @@
 #define NAIVE_BAYES_IMAGE_H
 
 #include <cstddef>
+#include <string>
 #include <vector>
 
 namespace naivebayes {
 
   const size_t kImageSize = 28; // size of each image to be processed
+  const std::string file = "/data/trainingimagesandlabels.txt";
+
 
   /**
    * Class that encapsulates training images.
@@ -14,10 +17,7 @@ namespace naivebayes {
   class Image {
 
   public:
-    /**
-     * Array storing the image pixels.
-     */
-    char grid[kImageSize][kImageSize];
+    char grid[kImageSize][kImageSize]; // array storing the image pixels
 
     /**
      * Method to get rid of gray pixels and makes image white and black, white being 0 and black being 1.

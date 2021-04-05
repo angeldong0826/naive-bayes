@@ -7,19 +7,20 @@
 namespace naivebayes {
 
   class Model {
+  public:
     /**
-    * Method that parses images from data file.
-    * @param file_name the file you want to parse from
+    * Method that parses images from data file_to_parse.
+    * @param file_name the file_to_parse you want to parse from
     * @return vector of images
     */
-    std::vector<Image> ParseImage(const std::string file);
+    static std::vector<Image> ParseImage(std::string file_to_parse);
 
     /**
-     * Method that parses labels from data file.
+     * Method that parses labels from data file_to_parse.
      * @param file_name
      * @return vector of labels as size_t
      */
-    std::vector<size_t> ParseLabel(const std::string file);
+    static std::vector<size_t> ParseLabel(std::string file_to_parse);
   };
 }
 
