@@ -8,18 +8,14 @@
 namespace naivebayes {
 
   const size_t kImageSize = 28; // size of each image to be processed
-  const std::string file = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/trainingimagesandlabels.txt";
-
+  const std::string file = "../data/trainingimagesandlabels.txt";
 
   /**
-   * Class that encapsulates training images.
+   * Class that encapsulates training images_.
    */
   class Image {
 
   public:
-
-    std::vector<Image> images; // array storing the image pixels
-
     char grid[kImageSize][kImageSize]; // array storing the image pixels
 
     /**

@@ -12,7 +12,7 @@ int main() {
 //  return 0;
 
   std::vector<naivebayes::Image> vector;
-  vector = naivebayes::Model::ParseImage("/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/testimagesmall");
+  vector = naivebayes::Model::ParseImage("../data/testimagesmall");
   for (auto image: vector) {
     for (size_t row = 0; row < 28; row++) {
       for (int i = 0; i < 28; i++) {
