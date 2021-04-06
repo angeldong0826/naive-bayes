@@ -1,5 +1,5 @@
-#ifndef NAIVE_BAYES_CALCULATION_H
-#define NAIVE_BAYES_CALCULATION_H
+#ifndef NAIVE_BAYES_CLASSIFIER_H
+#define NAIVE_BAYES_CLASSIFIER_H
 
 #include <cstddef>
 #include <string>
@@ -8,7 +8,7 @@
 
 namespace naivebayes {
 
-  class Calculation {
+  class Classifier {
 
   public:
     constexpr static double kSmoothingFactor = 1.0; // la place smoothing factor
@@ -25,4 +25,4 @@ namespace naivebayes {
     double CalculatePrior(size_t input);
   };
 }
-#endif//NAIVE_BAYES_CALCULATION_H
+#endif//NAIVE_BAYES_CLASSIFIER_H

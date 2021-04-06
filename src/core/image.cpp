@@ -1,35 +1,25 @@
 #include "core/image.h"
-#include <string>
+#include <iostream>
 #include <istream>
+#include <string>
 
 namespace naivebayes {
 
-void Image::NumberCodeImages() {
-  for (auto &i : grid) {
-    for (char j : i) {
-      if (j == ' ') {
-        j = 0;
-      } else if (j == '+' || j == '#') {
-        j = 1;
-      }
-    }
-  }
-}
-
 std::istream& operator>>(std::istream& is, Image &image) {
+  std::string first;
+  getline(is, first);
+
   size_t count = 0;
-  Image current{};
-
   for (std::string line; std::getline(is, line); count++) {
-
+    
     //iterate through the string and fill vector with the chars
-    for (int i = 0; i < line.length(); i++) {
-      current.grid[count % kImageSize][i] = line[i];
-    }
-
-    if (count % kImageSize == kImageSize - 1) {
-      current.NumberCodeImages();
-      image.images.push_back(current);
+    for (int i = 0; i < line.length(); ++i) {
+      
+      if (line[i] == '+' || line[i] == '#') {
+        image.grid[count % kImageSize][i] = '1';
+      } else {
+        image.grid[count % kImageSize][i] = '0';
+      }
     }
   }
 

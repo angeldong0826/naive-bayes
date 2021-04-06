@@ -7,7 +7,18 @@ int main() {
   // TODO: Replace this with code that reads the training data, trains a model,
   // and saves the trained model to a file.
 
-  std::cout << "Welcome to " << naivebayes::Model().GetBestClass()
-            << std::endl;
-  return 0;
+//  std::cout << "Welcome to " << naivebayes::Model().GetBestClass()
+//            << std::endl;
+//  return 0;
+
+  std::vector<naivebayes::Image> vector;
+  vector = naivebayes::Model::ParseImage("/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/testimagesmall");
+  for (auto image: vector) {
+    for (size_t row = 0; row < 28; row++) {
+      for (int i = 0; i < 28; i++) {
+        std::cout<< image.grid[row][i];
+      }
+      std::cout << std::endl;
+    }
+  }
 }

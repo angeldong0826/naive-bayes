@@ -13,18 +13,14 @@ namespace naivebayes {
      *
     * @param file_path of file to be parsed
     */
-    static void ParseImage(std::string file_path);
+    static std::vector<Image> ParseImage(std::string file_path);
 
     /**
      * Method that parses labels from data file_path.
      *
      * @param file_path of file to be parsed
      */
-    void ParseLabel(std::string file_path);
-
-    static std::vector<Image> images;
-
-    static std::vector<size_t> labels;
+    static std::vector<size_t> ParseLabel(std::string file_path);
 
     std::string GetBestClass() const;
   };

@@ -8,7 +8,7 @@
 namespace naivebayes {
 
   const size_t kImageSize = 28; // size of each image to be processed
-  const std::string file = "/data/trainingimagesandlabels.txt";
+  const std::string file = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/trainingimagesandlabels.txt";
 
 
   /**
@@ -23,14 +23,9 @@ namespace naivebayes {
     char grid[kImageSize][kImageSize]; // array storing the image pixels
 
     /**
-     * Method to get rid of gray pixels and makes image white and black, white being 0 and black being 1.
-     */
-    void NumberCodeImages();
-
-    /**
      * Overloading operator >> to convert an image to a vector of 0's and 1's.
      *
-     * @param is
+     * @param is input stream
      * @param image
      * @return vector of Image of 0's and 1's corresponding to color
      */
