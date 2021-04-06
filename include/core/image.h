@@ -17,6 +17,9 @@ namespace naivebayes {
   class Image {
 
   public:
+
+    std::vector<Image> images; // array storing the image pixels
+
     char grid[kImageSize][kImageSize]; // array storing the image pixels
 
     /**
@@ -25,15 +28,13 @@ namespace naivebayes {
     void NumberCodeImages();
 
     /**
-     *
+     * Overloading operator >> to convert an image to a vector of 0's and 1's.
      *
      * @param is
      * @param image
      * @return vector of Image of 0's and 1's corresponding to color
      */
     friend std::istream& operator>>(std::istream& is, Image& image);
-
-    friend std::ostream& operator<<(std::ostream& os, Image& image);
   };
 
 }// namespace naivebayes

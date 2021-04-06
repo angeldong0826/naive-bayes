@@ -17,11 +17,23 @@ void Image::NumberCodeImages() {
 }
 
 std::istream& operator>>(std::istream& is, Image &image) {
-  return is;
-}
+  size_t count = 0;
+  Image current{};
 
-std::ostream& operator<<(std::ostream& os, Image &image) {
-  return os;
+  for (std::string line; std::getline(is, line); count++) {
+
+    //iterate through the string and fill vector with the chars
+    for (int i = 0; i < line.length(); i++) {
+      current.grid[count % kImageSize][i] = line[i];
+    }
+
+    if (count % kImageSize == kImageSize - 1) {
+      current.NumberCodeImages();
+      image.images.push_back(current);
+    }
+  }
+
+  return is;
 }
 
 } // namespace naivebayes

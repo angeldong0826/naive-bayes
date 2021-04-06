@@ -17,11 +17,11 @@ namespace naivebayes {
     size_t class_array[kNumClasses]; // array with size of numClasses to store frequency of image
 
     /**
-  * Method that calculates the prior of input class.
-  *
-  * @param prior class to be calculated
-  * @return probability of image belonging to the input prior class
-  */
+    * Method that calculates the prior of input class.
+    *
+    * @param prior class to be calculated
+    * @return probability of image belonging to the input prior class
+    */
     double CalculatePrior(size_t input);
   };
 }
