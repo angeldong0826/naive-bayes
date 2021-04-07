@@ -21,11 +21,11 @@ namespace naivebayes {
     
     double probability_array_[kImageSize][kImageSize][kNumClasses][kShadeCount];
 
-    std::string ProbabilityArrayToString();
+//    std::string ProbabilityArrayToString();
 
-            /**
+    /**
     * Method that parses images_ from data file_path.
-     *
+    *
     * @param file_path of file to be parsed
     */
     std::vector<Image> ParseImage(std::string file_path);
@@ -37,12 +37,12 @@ namespace naivebayes {
      */
     std::vector<size_t> ParseLabel(std::string file_path);
     
-    /**
-     * Method to save probability data to a file.
-     * 
-     * @param file_path file to store data in
-     */
-    void SaveData(std::string file_path);
+//    /**
+//     * Method to save probability data to a file.
+//     * 
+//     * @param file_path file to store data in
+//     */
+//    void SaveData(std::string file_path);
     
     /**
      * Method that calculates the amount of training images_ that belong to a class.
@@ -66,6 +66,16 @@ namespace naivebayes {
     * @return probability of image belonging to the input prior class
     */
     double CalculatePrior(size_t input);
+    
+    /**
+    * Operator << overload that saves the data needed to classify images to a file.
+    */
+    friend std::istream& operator<<(std::ostream& os, Model &model);    
+    
+    /**
+     * Method that loads the data back into a file.
+     */
+    void LoadData();
   };
 }
 

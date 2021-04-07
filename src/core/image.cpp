@@ -11,7 +11,6 @@ namespace naivebayes {
 
     size_t count = 0;
     for (std::string line; std::getline(is, line); count++) {
-
       for (int i = 0; i < line.length(); ++i) {
 
         if (line[i] == '+' || line[i] == '#') {
@@ -19,6 +18,9 @@ namespace naivebayes {
         } else {
           image.grid[count % kImageSize][i] = '0';
         }
+      }
+      if (count == kImageSize - 1) {
+        break;
       }
     }
 
