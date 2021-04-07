@@ -43,9 +43,13 @@ namespace naivebayes {
   
   TEST_CASE("Pixel probability") {
     Model model;
+
     std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/testimage.txt";
-    
-    model.CalculatePixelProbability(0,0,0,0);
+    model.ParseImage(path);
+    model.ParseLabel(path);
+
+    REQUIRE(model.CalculatePixelProbability(0,0,0,0) == Approx(-0.6931471));
+    REQUIRE(model.CalculatePixelProbability(12,12,0,3) == Approx(-0.6931471));
   }
   
   TEST_CASE("Save data") {
