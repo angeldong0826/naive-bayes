@@ -2,11 +2,12 @@
 #define NAIVE_BAYES_MODEL_H
 
 #include "core/image.h"
+#include "ostream"
 
 namespace naivebayes {
 
   /**
-   * //TODO JAVADOC
+   * Class that models image training.
    */
   class Model {
   public:
@@ -21,8 +22,6 @@ namespace naivebayes {
     
     double probability_array_[kImageSize][kImageSize][kNumClasses][kShadeCount];
 
-//    std::string ProbabilityArrayToString();
-
     /**
     * Method that parses images_ from data file_path.
     *
@@ -35,14 +34,7 @@ namespace naivebayes {
      *
      * @param file_path of file to be parsed
      */
-    std::vector<size_t> ParseLabel(std::string file_path);
-    
-//    /**
-//     * Method to save probability data to a file.
-//     * 
-//     * @param file_path file to store data in
-//     */
-//    void SaveData(std::string file_path);
+    std::vector<size_t> ParseLabel(const std::string &file_path);
     
     /**
      * Method that calculates the amount of training images_ that belong to a class.
@@ -52,12 +44,12 @@ namespace naivebayes {
      * @param desired_class class number
      * @return number of images_ that belong to input class
      */
-    double CalculatePixelProbabilityAtLocation(size_t row, size_t col, size_t desired_class, size_t desired_shade);
+    double CalculatePixelProbability(size_t row, size_t col, size_t desired_class, size_t desired_shade);
     
     /**
      * Method that calculates the pixel probability for every pixel in an image.
      */
-    void SetProbabilityArray();
+    void CalculateFeatureProbability();
 
     /**
     * Method that calculates the prior of input class.
@@ -65,17 +57,21 @@ namespace naivebayes {
     * @param prior class to be calculated
     * @return probability of image belonging to the input prior class
     */
-    double CalculatePrior(size_t input);
+    double CalculatePrior(size_t input, std::string &file);
     
     /**
     * Operator << overload that saves the data needed to classify images to a file.
     */
-    friend std::istream& operator<<(std::ostream& os, Model &model);    
+    friend std::ostream& operator<<(std::ostream& os, Model &model);    
     
     /**
      * Method that loads the data back into a file.
      */
-    void LoadData();
+    void LoadData(std::string file, Model &model);
+
+//    std::vector<Image> GetImages() const;
+//    
+//    std::vector<size_t> GetLabels() const;
   };
 }
 
