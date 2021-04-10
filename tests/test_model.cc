@@ -10,7 +10,7 @@ namespace naivebayes {
     std::vector<naivebayes::Image> vector;
     Model model;
     std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/testimage.txt";
-    vector = model.ParseImage(path);
+    vector = model.ParseImages(path);
 
     REQUIRE(vector.size() == 3);
     REQUIRE(vector[0].grid[0][0] == '0');
@@ -45,11 +45,11 @@ namespace naivebayes {
     Model model;
 
     std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/testimage.txt";
-    model.ParseImage(path);
+    model.ParseImages(path);
     model.ParseLabel(path);
 
-    REQUIRE(model.CalculatePixelProbability(0,0,0,0) == Approx(-0.6931471));
-    REQUIRE(model.CalculatePixelProbability(12,12,0,3) == Approx(-0.6931471));
+    REQUIRE(model.CalculateFeatureProbability(0, 0, 0, 0) == Approx(-0.6931471));
+    REQUIRE(model.CalculateFeatureProbability(12, 12, 0, 3) == Approx(-0.6931471));
   }
   
   TEST_CASE("Save data") {
@@ -74,3 +74,5 @@ namespace naivebayes {
     REQUIRE(model.CalculatePrior(0, path) == Approx(-0.1805083197));
   }
 }
+
+// check PL

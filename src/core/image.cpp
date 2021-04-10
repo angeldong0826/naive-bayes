@@ -6,8 +6,8 @@
 namespace naivebayes {
 
   std::istream &operator>>(std::istream &is, Image &image) {
-    std::string first;
-    getline(is, first);
+//    std::string first;
+//    getline(is, first);
 
     size_t count = 0;
     for (std::string line; std::getline(is, line); count++) {
