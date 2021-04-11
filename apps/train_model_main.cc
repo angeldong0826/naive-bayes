@@ -6,17 +6,6 @@
 
 int main() {
   naivebayes::Model model;
-//  std::vector<naivebayes::Image> vector;
-//  vector = model.ParseImages("../data/testimage.txt");
-
-//  for (auto image: vector) {
-//    for (auto & row : image.grid) {
-//      for (char i : row) {
-//        std::cout<< i;
-//      }
-//      std::cout << std::endl;
-//    }
-//  }
   
   std::string path = "../data/trainingimagesandlabels.txt";
   
@@ -27,8 +16,7 @@ int main() {
 //    }
 //    std::cout << std::endl;
 //  }
-//  std::cout << "Parsing labels" << std::endl;
-//  model.ParseLabel(path);
+
   model.TrainModel();
   
   std::string file_path = "../data/modeltoload.txt";

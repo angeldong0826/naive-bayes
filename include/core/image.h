@@ -8,7 +8,6 @@
 namespace naivebayes {
 
   const size_t kImageSize = 28;// size of each image to be processed
-                               //   const std::string file_name = "../data/trainingimagesandlabels.txt"; // default training file path
 
   /**
    * Class that encapsulates training images.

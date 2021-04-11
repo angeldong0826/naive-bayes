@@ -5,6 +5,7 @@
 
 
 namespace naivebayes {
+  // todo: operator overload
 
   void Model::ParseImages(std::string file_path) {
     if (file_path.empty()) {
@@ -68,8 +69,8 @@ namespace naivebayes {
   }
 
   void Model::CalculatePriorProbabilities() {
-    class_ = std::vector<size_t>(kNumClasses);
-    prior_prob_ = std::vector<double>(kNumClasses);
+    class_ = std::vector<size_t>(kNumClasses); // set size to vector
+    prior_prob_ = std::vector<double>(kNumClasses); // set size to vector
 
     for (size_t label : labels_) {
       class_[label]++;

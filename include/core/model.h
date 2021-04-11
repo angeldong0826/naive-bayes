@@ -20,9 +20,7 @@ namespace naivebayes {
 
     std::vector<double> prior_prob_;// vector of priors at a class
     std::vector<size_t> class_;     // vector of number of images that belong to a class
-
-//    size_t feature_count_[kImageSize][kImageSize][kNumClasses][kShadeCount];
-
+    
     double feature_prob_[kImageSize][kImageSize][kNumClasses][kShadeCount];
     
     // todo: make methods private
