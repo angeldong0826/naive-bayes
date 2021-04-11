@@ -44,7 +44,7 @@ namespace naivebayes {
       for (size_t row = 0; row < kImageSize; row++) {
         for (size_t col = 0; col < kImageSize; col++) {
           size_t shade = image.grid[row][col] - '0';
-          feature_prob_[row][col][class_num][shade]++;
+          feature_count_[row][col][class_num][shade]++;
         }
       }
       idx++;
@@ -55,7 +55,7 @@ namespace naivebayes {
         for (size_t class_num = 0; class_num < kNumClasses; class_num++) {
           for (size_t shade = 0; shade < kShadeCount; shade++) {
 
-            feature_prob_[row][col][class_num][shade] = log((kSmoothingFactor + static_cast<double>(feature_prob_[row][col][class_num][shade])) /
+            feature_prob_[row][col][class_num][shade] = log((kSmoothingFactor + static_cast<double>(feature_count_[row][col][class_num][shade])) /
                                                             (2 * kSmoothingFactor + static_cast<double>(class_[class_num])));
           }
         }
@@ -69,8 +69,8 @@ namespace naivebayes {
   }
 
   void Model::CalculatePriorProbabilities() {
-    class_ = std::vector<size_t>(kNumClasses); // set size to vector
-    prior_prob_ = std::vector<double>(kNumClasses); // set size to vector
+    class_ = std::vector<size_t>(kNumClasses);     // set size to vector
+    prior_prob_ = std::vector<double>(kNumClasses);// set size to vector
 
     for (size_t label : labels_) {
       class_[label]++;
