@@ -5,7 +5,7 @@
 
 
 namespace naivebayes {
-  
+
   void Model::ParseImages(std::string file_path) {
     if (file_path.empty()) {
       throw std::invalid_argument("Empty filepath");
@@ -19,13 +19,13 @@ namespace naivebayes {
     }
 
     images_.clear();
-    
-    while (!read.eof()) { // while not reached the end of file
+
+    while (!read.eof()) {// while not reached the end of file
       std::string line;
       std::getline(read, line);
-      
+
       labels_.push_back(std::stoi(line));
-      
+
       Image image{};
       read >> image;
       images_.push_back(image);
@@ -33,47 +33,51 @@ namespace naivebayes {
 
     read.close();
   }
-  
-  void Model::CalculateFeatureProbabilities(size_t row, size_t col, size_t desired_class, size_t desired_shade) {
-    size_t count = 0;
-    for (size_t label = 0; label < labels_.size(); label++) {
-      if (label == desired_class && images_[label].grid[row][col] == desired_shade) {
-        count++;
+
+  void Model::CalculateFeatureProbabilities() {
+    size_t idx = 0;
+
+    for (Image &image : images_) {
+      size_t class_num = labels_[idx];
+
+      for (size_t row = 0; row < kImageSize; row++) {
+        for (size_t col = 0; col < kImageSize; col++) {
+          size_t shade = image.grid[row][col] - '0';
+          feature_prob_[row][col][class_num][shade]++;
+        }
       }
+      idx++;
     }
 
-    feature_prob_[row][col][desired_class][desired_shade] = log((kSmoothingFactor + static_cast<double>(count)) /
-                                                                 (2 * kSmoothingFactor * static_cast<double>(class_prob_[desired_class])));
-  }
-
-  void Model::TrainModel() {
-    
     for (size_t row = 0; row < kImageSize; row++) {
       for (size_t col = 0; col < kImageSize; col++) {
-        for (size_t num = 0; num < kNumClasses; num++) {
+        for (size_t class_num = 0; class_num < kNumClasses; class_num++) {
           for (size_t shade = 0; shade < kShadeCount; shade++) {
 
-            CalculateFeatureProbabilities(row, col, num, shade);
-            CalculatePriorProbabilities();
+            feature_prob_[row][col][class_num][shade] = log((kSmoothingFactor + static_cast<double>(feature_prob_[row][col][class_num][shade])) /
+                                                            (2 * kSmoothingFactor + static_cast<double>(class_[class_num])));
           }
         }
       }
     }
   }
 
+  void Model::TrainModel() {
+    CalculatePriorProbabilities();
+    CalculateFeatureProbabilities();
+  }
+
   void Model::CalculatePriorProbabilities() {
-    for (size_t num = 0; num < kNumClasses; num++) {
-      size_t count = 0;
-      for (size_t label : labels_) {
-        if (label == num) {
-          count++;
-        }
-      }
-      class_prob_.push_back(count);
+    class_ = std::vector<size_t>(kNumClasses);
+    prior_prob_ = std::vector<double>(kNumClasses);
+
+    for (size_t label : labels_) {
+      class_[label]++;
     }
-    
+
     for (size_t i = 0; i < kNumClasses; i++) {
-      prior_prob_.at(i) = log((kSmoothingFactor + static_cast<double>(class_prob_.at(i))) / kNumClasses * kSmoothingFactor + static_cast<double>(labels_.size()));
+      prior_prob_[i] = log((kSmoothingFactor + static_cast<double>(class_[i])) /
+                           (kNumClasses * kSmoothingFactor + static_cast<double>(labels_.size())));
     }
   }
 
@@ -84,7 +88,7 @@ namespace naivebayes {
           for (size_t col = 0; col < kImageSize; col++) {
             os << model.feature_prob_[row][col][num][shade] << " ";
           }
-          
+
           os << std::endl;
         }
       }

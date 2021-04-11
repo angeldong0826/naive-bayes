@@ -7,8 +7,8 @@
 
 namespace naivebayes {
 
-  const size_t kImageSize = 28; // size of each image to be processed
-//   const std::string file_name = "../data/trainingimagesandlabels.txt"; // default training file path
+  const size_t kImageSize = 28;// size of each image to be processed
+                               //   const std::string file_name = "../data/trainingimagesandlabels.txt"; // default training file path
 
   /**
    * Class that encapsulates training images.
@@ -16,17 +16,16 @@ namespace naivebayes {
   class Image {
 
   public:
-    // todo: make private
-    char grid[kImageSize][kImageSize]; // array storing the image pixels
+    char grid[kImageSize][kImageSize];// array storing the image pixels
 
     /**
-     * Overloading operator >> to convert an image to a vector of 0's and 1's.
+     * Operator overload that converts an image to an array of processed 0's and 1's.
      *
      * @param is input stream
      * @param image
-     * @return vector of Image of 0's and 1's corresponding to color
+     * @return array of Image of 0's and 1's corresponding to shade
      */
-    friend std::istream& operator>>(std::istream& is, Image& image);
+    friend std::istream &operator>>(std::istream &is, Image &image);
   };
 
 }// namespace naivebayes

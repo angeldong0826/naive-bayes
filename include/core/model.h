@@ -11,51 +11,58 @@ namespace naivebayes {
    */
   class Model {
   public:
-    static const constexpr double kSmoothingFactor = 1.0; // la place smoothing factor
-    static const size_t kNumClasses = 10; // number of classes that images_ can belong to
-    static const size_t kShadeCount = 2; // number-coded shade. 0 being unshaded and 1 being shaded
+    static const constexpr double kSmoothingFactor = 1.0;// la place smoothing factor
+    static const size_t kNumClasses = 10;                // number of classes that images_ can belong to
+    static const size_t kShadeCount = 2;                 // number-coded shade. 0 being unshaded and 1 being shaded
 
     std::vector<Image> images_; // vector of individual training images
-    std::vector<size_t> labels_; // vector of labels of training images
+    std::vector<size_t> labels_;// vector of labels of training images
 
-    std::vector<size_t> class_prob_; // vector of number of images that belong to a class
-    std::vector<double> prior_prob_; // vector of priors at a class
-    
+    std::vector<double> prior_prob_;// vector of priors at a class
+    std::vector<size_t> class_;     // vector of number of images that belong to a class
+
+//    size_t feature_count_[kImageSize][kImageSize][kNumClasses][kShadeCount];
+
     double feature_prob_[kImageSize][kImageSize][kNumClasses][kShadeCount];
     
-    size_t class_count_ = 0; // number of images in a class
-    
     // todo: make methods private
-    // todo: redo javadocs
     /**
     * Method that parses images_ from data file_path.
     *
     * @param file_path of file to be parsed
     */
     void ParseImages(std::string file_path);
-    
+
     /**
-     * Method that trains the model / calculates the pixel probability for every pixel in an image.
+     * Method that trains the model.
      */
     void TrainModel();
 
     /**
-    * Method that calculates the prior of desired_class class.
+    * Method that calculates and sets the prior of the classes.
     */
     void CalculatePriorProbabilities();
-    
+
     /**
-    * Operator << overload that saves the data needed to classify images to a file.
+    * Operator overload that saves data into a file.
     */
-    friend std::ostream& operator<<(std::ostream& os, Model &model);    
-    
+    friend std::ostream &operator<<(std::ostream &os, Model &model);
+
     /**
-     * Method that loads the data back into a file.
+     * Method that loads data into a file.
      */
     void LoadData(std::string file, Model &model);
 
-    void CalculateFeatureProbabilities(size_t row, size_t col, size_t desired_class, size_t desired_shade);
-    };
-}
+    /**
+     * Method that calculates and updates all feature probability of pixels.
+     * 
+     * @param row number
+     * @param col number
+     * @param desired_class class that image belongs to
+     * @param desired_shade 0 being unshaded 1 being shaded
+     */
+    void CalculateFeatureProbabilities();
+  };
+}// namespace naivebayes
 
 #endif//NAIVE_BAYES_MODEL_H
