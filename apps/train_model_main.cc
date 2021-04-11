@@ -2,10 +2,12 @@
 
 #include "core/image.h"
 #include <core/model.h>
+#include "core/classifier.h"
 #include <fstream>
 
 int main() {
   naivebayes::Model model;
+  naivebayes::Classifier classifier;
   
   std::string path = "../data/trainingimagesandlabels.txt";
   
@@ -18,10 +20,14 @@ int main() {
 //  }
 
   model.TrainModel();
+
+//  classifier.ReturnPredictedClass(model.images_[0], model);
+  
+  std::cout << classifier.ReturnPredictedClass(model.images_[1], model) << std::endl;
   
   std::string file_path = "../data/modeltoload.txt";
 
-   std::ofstream output(file_path);
+  std::ofstream output(file_path);
 
   if (output.is_open()) {
     output << model;

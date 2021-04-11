@@ -14,17 +14,24 @@ namespace naivebayes {
   class Classifier {
     
   public:
-    Model model; // instance of model object to be used in classification
+//    Model model; // instance of model object to be used in classification
     
     std::vector<double> likelihood_; // vector of likelihood of class
     
     /**
-     * Method that calculates the predicted class of an image.
+     * Method that returns the predicted class of an image.
      * 
      * @param image to be predicted
-     * @return prediced class of the image
+     * @return predicted class of the image
      */
-    void SetLikelihoodVector(Image& image);
+    size_t ReturnPredictedClass(const Image& image, const Model& model);
+
+//    /**
+//     * Helper method that finds the class with the highest probability.
+//     * 
+//     * @return class number that's with the highest probability
+//     */
+//    size_t FindHighestProbabilityClass();
   };
 }
 #endif//NAIVE_BAYES_CLASSIFIER_H

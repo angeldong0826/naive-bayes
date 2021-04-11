@@ -9,7 +9,7 @@ namespace naivebayes {
   TEST_CASE("Parse Image") {
     std::vector<naivebayes::Image> vector;
     Model model;
-    std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/testimage.txt";
+    std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/smalltestimage.txt";
     vector = model.ParseImages(path);
 
     REQUIRE(vector.size() == 3);
@@ -23,7 +23,7 @@ namespace naivebayes {
   TEST_CASE("Parse Label") {
     std::vector<size_t> vector;
     Model model;
-    std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/testimage.txt";
+    std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/smalltestimage.txt";
     vector = model.ParseLabel(path);
 
      REQUIRE(vector.size() == 3);
@@ -35,7 +35,7 @@ namespace naivebayes {
 
   TEST_CASE("Prior probability") {
     Model model;
-    std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/testimage.txt";
+    std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/smalltestimage.txt";
 
     REQUIRE(model.CalculatePriorProbabilities(4, path) == Approx(-1.8718021769));
     REQUIRE(model.CalculatePriorProbabilities(9, path) == Approx(-2.5649493575));
@@ -44,7 +44,7 @@ namespace naivebayes {
   TEST_CASE("Pixel probability") {
     Model model;
 
-    std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/testimage.txt";
+    std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/smalltestimage.txt";
     model.ParseImages(path);
     model.ParseLabel(path);
 
