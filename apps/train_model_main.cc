@@ -25,11 +25,11 @@ int main() {
   
 //  std::cout << "Parsing labels" << std::endl;
 //  model.ParseLabel(path);
-//  model.Train();
+//  model.TrainModel();
   std::cout << model.labels_.size() << std::endl;
   std::cout << model.images_.size() << std::endl;
 
-//  std::cout << model.CalculatePrior(4, path) << std::endl;
+//  std::cout << model.CalculatePriorProbabilities(4, path) << std::endl;
 
   std::string file_path = "../data/emptyfiletoloadmain.txt";
   

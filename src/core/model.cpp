@@ -33,58 +33,48 @@ namespace naivebayes {
 
     read.close();
   }
-
-  double Model::CalculateFeatureProbability(size_t row, size_t col, size_t desired_class, size_t desired_shade) {
+  
+  void Model::CalculateFeatureProbabilities(size_t row, size_t col, size_t desired_class, size_t desired_shade) {
     size_t count = 0;
-
-    for (size_t i = 0; i < labels_.size(); i++) {
-      if (labels_[i] == desired_class) {
-        if (images_[i].grid[row][col] == desired_shade) {
-          count++;
-        }
+    for (size_t label = 0; label < labels_.size(); label++) {
+      if (label == desired_class && images_[label].grid[row][col] == desired_shade) {
+        count++;
       }
     }
 
-    CalculateClassFrequency(desired_class);
-
-//    for (size_t label : labels_) {
-//      if (label == desired_class) {
-//        class_count++;
-//      }
-//    }
-
-    return log((kSmoothingFactor + static_cast<double>(count)) / (2 * kSmoothingFactor * static_cast<double>(class_count_)));
+    feature_prob_[row][col][desired_class][desired_shade] = log((kSmoothingFactor + static_cast<double>(count)) /
+                                                                 (2 * kSmoothingFactor * static_cast<double>(class_prob_[desired_class])));
   }
 
-  void Model::Train() {
+  void Model::TrainModel() {
     
     for (size_t row = 0; row < kImageSize; row++) {
       for (size_t col = 0; col < kImageSize; col++) {
         for (size_t num = 0; num < kNumClasses; num++) {
           for (size_t shade = 0; shade < kShadeCount; shade++) {
 
-            probability_array_[row][col][num][shade] = CalculateFeatureProbability(row, col, num, shade);
+            CalculateFeatureProbabilities(row, col, num, shade);
+            CalculatePriorProbabilities();
           }
         }
       }
     }
   }
 
-  double Model::CalculatePrior(size_t input, std::string &file) {
-//    for (size_t i = 0; i < kNumClasses; i++) {
-//      class_[i] = 0;
-//    }
-//    std::vector<size_t> vector = ParseLabel(file);
-//    ParseLabel(file);
-
-//    for (size_t i = 0; i < labels_.size(); i++) {
-//      if (labels_[i] == input) {
-//        class_[input] += 1;
-//      }
-//    }
-    CalculateClassFrequency(input);
-
-    return log((kSmoothingFactor + static_cast<double>(class_count_) / kNumClasses * kSmoothingFactor + static_cast<double>(labels_.size())));
+  void Model::CalculatePriorProbabilities() {
+    for (size_t num = 0; num < kNumClasses; num++) {
+      size_t count = 0;
+      for (size_t label : labels_) {
+        if (label == num) {
+          count++;
+        }
+      }
+      class_prob_.push_back(count);
+    }
+    
+    for (size_t i = 0; i < kNumClasses; i++) {
+      prior_prob_.at(i) = log((kSmoothingFactor + static_cast<double>(class_prob_.at(i))) / kNumClasses * kSmoothingFactor + static_cast<double>(labels_.size()));
+    }
   }
 
   std::ostream &operator<<(std::ostream &os, Model &model) {
@@ -92,8 +82,9 @@ namespace naivebayes {
       for (size_t shade = 0; shade < Model::kShadeCount; shade++) {
         for (size_t row = 0; row < kImageSize; row++) {
           for (size_t col = 0; col < kImageSize; col++) {
-            os << model.probability_array_[row][col][num][shade] << " ";
+            os << model.feature_prob_[row][col][num][shade] << " ";
           }
+          
           os << std::endl;
         }
       }
@@ -113,7 +104,7 @@ namespace naivebayes {
           for (size_t shade = 0; shade < kShadeCount; shade++) {
 
             my_file >> probability;
-            model.probability_array_[row][col][num][shade] = probability;
+            model.feature_prob_[row][col][num][shade] = probability;
           }
         }
       }
@@ -121,25 +112,5 @@ namespace naivebayes {
 
     my_file.close();
   }
-  
-  void Model::CalculateClassFrequency(size_t input) {
-    size_t count = 0;
-
-    for (size_t label : labels_) {
-      if (label == input) {
-        count++;
-      }
-    }
-    
-    class_count_ = count;
-  }
-
-  //  std::vector<Image> Model::GetImages() const {
-  //    return images_;
-  //  }
-  //
-  //  std::vector<size_t> Model::GetLabels() const {
-  //    return labels_;
-  //  }
 
 }// namespace naivebayes
