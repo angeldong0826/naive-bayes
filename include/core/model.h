@@ -22,7 +22,7 @@ namespace naivebayes {
     std::vector<size_t> class_;     // vector of number of images that belong to a class
 
     double feature_prob_[kImageSize][kImageSize][kNumClasses][kShadeCount];
-    size_t feature_count_[kImageSize][kImageSize][kNumClasses][kShadeCount];
+    size_t feature_count_[kImageSize][kImageSize][kNumClasses][kShadeCount] = {{{{0}}}};
 
 
     // todo: make methods private

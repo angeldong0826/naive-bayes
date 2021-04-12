@@ -20,7 +20,6 @@ namespace naivebayes {
           likelihood_prob += model.feature_prob_[row][col][num][shade];
         }
       }
-//      std::cout << likelihood_prob << std::endl;
       likelihood_[num] = likelihood_prob;
     }
 

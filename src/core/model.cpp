@@ -36,16 +36,6 @@ namespace naivebayes {
   }
 
   void Model::CalculateFeatureProbabilities() {
-    for (size_t row = 0; row < kImageSize; row++) {
-      for (size_t col = 0; col < kImageSize; col++) {
-        for (size_t class_num = 0; class_num < kNumClasses; class_num++) {
-          for (size_t shade = 0; shade < kShadeCount; shade++) {
-            feature_count_[row][col][class_num][shade] = 0;
-            feature_prob_[row][col][class_num][shade] = 0;
-          }
-        }
-      }
-    }
     size_t idx = 0;
 
     for (Image &image : images_) {
@@ -54,7 +44,6 @@ namespace naivebayes {
       for (size_t row = 0; row < kImageSize; row++) {
         for (size_t col = 0; col < kImageSize; col++) {
           size_t shade = image.grid[row][col] - '0';
-//          std::cout << feature_count_[row][col][class_num][shade] << std::endl;
           feature_count_[row][col][class_num][shade]++;
         }
       }
@@ -68,14 +57,6 @@ namespace naivebayes {
 
             feature_prob_[row][col][class_num][shade] = log((kSmoothingFactor + static_cast<double>(feature_count_[row][col][class_num][shade])) /
                                                             (2 * kSmoothingFactor + static_cast<double>(class_[class_num])));
-            if (feature_prob_[row][col][class_num][shade] > 0) {
-              std::cout << row << " " << col << " " << class_num << " " << shade << std::endl;
-//              std::cout << (kSmoothingFactor + static_cast<double>(feature_count_[row][col][class_num][shade])) /
-//                           (2 * kSmoothingFactor + static_cast<double>(class_[class_num])) << std::endl;
-              std::cout << static_cast<double>(feature_count_[row][col][class_num][shade]) << std::endl;
-              std::cout << (2 * kSmoothingFactor + static_cast<double>(class_[class_num])) << std::endl;
-            }
-            
           }
         }
       }
