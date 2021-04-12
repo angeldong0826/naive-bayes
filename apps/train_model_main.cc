@@ -15,7 +15,7 @@ int main() {
 //  model.TrainModel();
   std::string p = "../data/modeltoload.txt";
   model.LoadData(p);
-  std::cout << model.feature_prob_[0][0][0][0] << std::endl;
+  std::cout << model.feature_prob_[27][0][0][1] << std::endl;
   
 //  std::cout << model.prior_prob_.size() << std::endl;
 

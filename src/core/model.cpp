@@ -1,6 +1,7 @@
 #include <core/model.h>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <string>
 
 
@@ -101,27 +102,26 @@ namespace naivebayes {
   void Model::LoadData(std::string file) {
     std::ifstream my_file;
     my_file.open(file);
-
-    for (size_t i = 0; i < kFeatureCount; i++) {
+    
+    for (size_t num = 0; num < Model::kNumClasses; num++) {
       std::string prior;
       getline(my_file, prior);
       prior_prob_.push_back(stod(prior));
-
-      for (size_t row = 0; row < kImageSize; row++) {
-        for (size_t col = 0; col < kImageSize; col++) {
-          for (size_t num = 0; num < kNumClasses; num++) {
-            for (size_t shade = 0; shade < kShadeCount; shade++) {
-
-              std::string feature;
-              getline(my_file, feature);
-              feature_prob_[row][col][num][shade] = std::stod(feature);
-            }
+      
+      for (size_t shade = 0; shade < Model::kShadeCount; shade++) {
+        
+        for (size_t row = 0; row < kImageSize; row++) {
+          std::string feature;
+          getline(my_file, feature);
+          std::stringstream line_stream(feature);
+          
+          for (size_t col = 0; col < kImageSize; col++) {
+            feature_prob_[row][col][num][shade] = std::stod(feature);
           }
         }
       }
-
-      my_file.close();
     }
+    my_file.close();
   }
 
 }// namespace naivebayes
