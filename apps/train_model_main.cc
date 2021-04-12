@@ -23,9 +23,14 @@ int main() {
   model.TrainModel();
 
 //  classifier.ReturnPredictedClass(model.images_[0], model);
-  for (size_t i = 0; i < 10; ++i) {
-    std::cout << classifier.ReturnPredictedClass(model.images_[i], model) << std::endl;
-  }
+//  for (size_t i = 0; i < 10; ++i) {
+//    std::cout << classifier.ReturnPredictedClass(model.images_[i], model) << std::endl;
+//    std::cout << classifier.CalculateAccuracyPercentage(model.images_[i], model) << std::endl;
+//
+//  }
+  
+  std::cout << classifier.CalculateAccuracyPercentage(model) << std::endl;
+
 //  std::cout << classifier.ReturnPredictedClass(model.images_[0], model) << std::endl;
 //  std::cout << classifier.ReturnPredictedClass(model.images_[1], model) << std::endl;
 //  std::cout << classifier.ReturnPredictedClass(model.images_[2], model) << std::endl;

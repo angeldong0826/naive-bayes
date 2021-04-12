@@ -15,6 +15,8 @@ namespace naivebayes {
 
   public:
     std::vector<double> likelihood_;// vector of likelihood of class
+    
+    std::vector<size_t> predicted_class_;
 
     /**
      * Method that returns the predicted class of an image.
@@ -23,13 +25,14 @@ namespace naivebayes {
      * @return predicted class of the image
      */
     size_t ReturnPredictedClass(const Image &image, const Model &model);
-
-    //    /**
-    //     * Helper method that finds the class with the highest probability.
-    //     *
-    //     * @return class number that's with the highest probability
-    //     */
-    //    size_t FindHighestProbabilityClass();
+    
+    /**
+     * Method that calculates the accuracy of the predictor.
+     * 
+     * @param model 
+     * @return accuracy of predictor
+     */
+    double CalculateAccuracyPercentage(const Model &model);
   };
 }// namespace naivebayes
 #endif//NAIVE_BAYES_CLASSIFIER_H
