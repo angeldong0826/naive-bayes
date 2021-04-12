@@ -53,13 +53,19 @@ void Sketchpad::HandleBrush(const vec2& brush_screen_coords) {
       if (glm::distance(brush_sketchpad_coords, pixel_center) <=
           brush_radius_) {
         // TODO: Add code to shade in the pixel at (row, col)
+        image.grid[row][col] = '1';
       }
     }
   }
 }
 
 void Sketchpad::Clear() {
-  // TODO: implement this method
+  for (size_t row = 0; row < num_pixels_per_side_; ++row) {
+    for (size_t col = 0; col < num_pixels_per_side_; ++col) {
+      
+      image.grid[row][col] = '0';
+    }
+  }
 }
 
 }  // namespace visualizer

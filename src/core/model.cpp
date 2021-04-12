@@ -5,7 +5,6 @@
 
 
 namespace naivebayes {
-  // todo: operator overload
 
   void Model::ParseImages(std::string file_path) {
     if (file_path.empty()) {
@@ -43,7 +42,7 @@ namespace naivebayes {
 
       for (size_t row = 0; row < kImageSize; row++) {
         for (size_t col = 0; col < kImageSize; col++) {
-          size_t shade = image.grid[row][col] - '0';
+          size_t shade = image.GetValue(row, col) - '0';
           feature_count_[row][col][class_num][shade]++;
         }
       }
@@ -84,6 +83,7 @@ namespace naivebayes {
 
   std::ostream &operator<<(std::ostream &os, Model &model) {
     for (size_t num = 0; num < Model::kNumClasses; num++) {
+      os << model.prior_prob_[num] << std::endl;
       for (size_t shade = 0; shade < Model::kShadeCount; shade++) {
         for (size_t row = 0; row < kImageSize; row++) {
           for (size_t col = 0; col < kImageSize; col++) {
@@ -98,24 +98,30 @@ namespace naivebayes {
     return os;
   }
 
-  void Model::LoadData(std::string file, Model &model) {
+  void Model::LoadData(std::string file) {
     std::ifstream my_file;
     my_file.open(file);
 
-    double probability;
-    for (size_t row = 0; row < kImageSize; row++) {
-      for (size_t col = 0; col < kImageSize; col++) {
-        for (size_t num = 0; num < kNumClasses; num++) {
-          for (size_t shade = 0; shade < kShadeCount; shade++) {
+    for (size_t i = 0; i < kFeatureCount; i++) {
+      std::string prior;
+      getline(my_file, prior);
+      prior_prob_.push_back(stod(prior));
 
-            my_file >> probability;
-            model.feature_prob_[row][col][num][shade] = probability;
+      for (size_t row = 0; row < kImageSize; row++) {
+        for (size_t col = 0; col < kImageSize; col++) {
+          for (size_t num = 0; num < kNumClasses; num++) {
+            for (size_t shade = 0; shade < kShadeCount; shade++) {
+
+              std::string feature;
+              getline(my_file, feature);
+              feature_prob_[row][col][num][shade] = std::stod(feature);
+            }
           }
         }
       }
-    }
 
-    my_file.close();
+      my_file.close();
+    }
   }
 
 }// namespace naivebayes

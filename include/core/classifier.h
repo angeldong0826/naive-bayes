@@ -15,8 +15,7 @@ namespace naivebayes {
 
   public:
     std::vector<double> likelihood_;// vector of likelihood of class
-    
-    std::vector<size_t> predicted_class_;
+    std::vector<size_t> predicted_class_; // vector of predicted class
 
     /**
      * Method that returns the predicted class of an image.
@@ -24,15 +23,15 @@ namespace naivebayes {
      * @param image to be predicted
      * @return predicted class of the image
      */
-    size_t ReturnPredictedClass(const Image &image, const Model &model);
-    
+    size_t ReturnPredictedClass(Image &image, const Model &model);
+
     /**
      * Method that calculates the accuracy of the predictor.
      * 
      * @param model 
      * @return accuracy of predictor
      */
-    double CalculateAccuracyPercentage(const Model &model);
+    double CalculateAccuracyPercentage(Model &model);
   };
 }// namespace naivebayes
 #endif//NAIVE_BAYES_CLASSIFIER_H

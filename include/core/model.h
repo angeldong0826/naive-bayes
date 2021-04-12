@@ -14,6 +14,7 @@ namespace naivebayes {
     static const constexpr double kSmoothingFactor = 1.0;// la place smoothing factor
     static const size_t kNumClasses = 10;                // number of classes that images_ can belong to
     static const size_t kShadeCount = 2;                 // number-coded shade. 0 being unshaded and 1 being shaded
+    const size_t kFeatureCount = kImageSize * kImageSize * kShadeCount;
 
     std::vector<Image> images_; // vector of individual training images
     std::vector<size_t> labels_;// vector of labels of training images
@@ -51,7 +52,7 @@ namespace naivebayes {
     /**
      * Method that loads data into a file.
      */
-    void LoadData(std::string file, Model &model);
+    void LoadData(std::string file);
 
     /**
      * Method that calculates and updates all feature probability of pixels.

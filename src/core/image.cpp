@@ -26,5 +26,9 @@ namespace naivebayes {
 
     return is;
   }
+  
+  char Image::GetValue(size_t row, size_t col) {
+    return grid[row][col];
+  }
 
 }// namespace naivebayes

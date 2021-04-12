@@ -15,8 +15,6 @@ namespace naivebayes {
   class Image {
 
   public:
-    char grid[kImageSize][kImageSize];// array storing the image pixels
-
     /**
      * Operator overload that converts an image to an array of processed 0's and 1's.
      *
@@ -25,6 +23,18 @@ namespace naivebayes {
      * @return array of Image of 0's and 1's corresponding to shade
      */
     friend std::istream &operator>>(std::istream &is, Image &image);
+
+    /**
+     * Getter method that gets the value at index of image grid.
+     * 
+     * @param row number
+     * @param column number
+     * @return value at index
+     */
+    char GetValue(size_t row, size_t col);
+    
+  private:
+    char grid[kImageSize][kImageSize];// array storing the image pixels
   };
 
 }// namespace naivebayes
