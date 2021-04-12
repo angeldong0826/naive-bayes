@@ -33,5 +33,6 @@ namespace naivebayes {
      */
     double CalculateAccuracyPercentage(Model &model);
   };
+  
 }// namespace naivebayes
 #endif//NAIVE_BAYES_CLASSIFIER_H

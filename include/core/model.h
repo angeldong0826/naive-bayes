@@ -14,7 +14,6 @@ namespace naivebayes {
     static const constexpr double kSmoothingFactor = 1.0;// la place smoothing factor
     static const size_t kNumClasses = 10;                // number of classes that images_ can belong to
     static const size_t kShadeCount = 2;                 // number-coded shade. 0 being unshaded and 1 being shaded
-    const size_t kFeatureCount = kImageSize * kImageSize * kShadeCount;
 
     std::vector<Image> images_; // vector of individual training images
     std::vector<size_t> labels_;// vector of labels of training images
@@ -25,14 +24,13 @@ namespace naivebayes {
     double feature_prob_[kImageSize][kImageSize][kNumClasses][kShadeCount];
     size_t feature_count_[kImageSize][kImageSize][kNumClasses][kShadeCount] = {{{{0}}}};
 
-
     // todo: make methods private
     /**
     * Method that parses images_ from data file_path.
     *
     * @param file_path of file to be parsed
     */
-    void ParseImages(std::string file_path);
+    void ParseImages(std::string &file_path);
 
     /**
      * Method that trains the model.

@@ -7,7 +7,7 @@
 
 namespace naivebayes {
 
-  void Model::ParseImages(std::string file_path) {
+  void Model::ParseImages(std::string &file_path) {
     if (file_path.empty()) {
       throw std::invalid_argument("Empty filepath");
     }
@@ -116,6 +116,7 @@ namespace naivebayes {
           std::stringstream line_stream(feature);
           
           for (size_t col = 0; col < kImageSize; col++) {
+            line_stream >> feature;
             feature_prob_[row][col][num][shade] = std::stod(feature);
           }
         }
