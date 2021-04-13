@@ -10,18 +10,15 @@ namespace naivebayes {
   const size_t kShadeCount = 2;                 // number-coded shade. 0 being unshaded and 1 being shaded
   
   /**
-   * Class that models image_ training.
+   * Class that models image training.
    */
   class Model {
   public:
     std::vector<double> prior_prob_;// vector of priors at a class
     std::vector<size_t> class_;     // vector of number of images that belong to a class
 
-    std::vector<std::vector<std::vector<std::vector<double>>>> feature_prob_;
-    std::vector<std::vector<std::vector<std::vector<size_t>>>> feature_count_;
-
-//    double feature_prob_[kImageSize][kImageSize][kNumClasses][kShadeCount] = {{{{0}}}};
-//    size_t feature_count_[kImageSize][kImageSize][kNumClasses][kShadeCount] = {{{{0}}}};
+    std::vector<std::vector<std::vector<std::vector<double>>>> feature_prob_; // 4d vector storing feature probabilities
+    std::vector<std::vector<std::vector<std::vector<size_t>>>> feature_count_; // 4d vector storing feature counts
     
     Model(size_t size);
 
@@ -41,16 +38,29 @@ namespace naivebayes {
     * Method that calculates and sets the prior of the classes.
     */
     void CalculatePriorProbabilities();
-
+    
     /**
-    * Operator overload that saves data into a file.
-    */
-    friend std::ostream &operator<<(std::ostream &os, Model &model);
-
-    /**
-     * Method that loads data into a file.
+     * Operator overload that saves data into file.
+     * 
+     * @param os 
+     * @param model 
+     * @return 
      */
-    void LoadData(std::string &file);
+    friend std::ostream &operator<<(std::ostream &os, Model &model);
+    
+    /**
+     * Operator overload that loads data into file.
+     * 
+     * @param is
+     * @param model 
+     * @return 
+     */
+    friend std::istream &operator>>(std::istream &is, Model &model);
+
+//    /**
+//     * Method that loads data into a file.
+//     */
+//    void LoadData(std::string &file);
 
     /**
      * Method that calculates and updates all feature probability of pixels.

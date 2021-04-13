@@ -6,7 +6,7 @@
 
 namespace naivebayes {
 
-  const size_t kImageSize = 28;// size of each image_ to be processed
+  const size_t kImageSize = 28;// size of each image to be processed
 
   /**
    * Class that encapsulates training images.
@@ -35,7 +35,7 @@ namespace naivebayes {
     void SetValue(size_t row, size_t col, size_t value);
     
   private:
-    char grid[kImageSize][kImageSize];// array storing the image_ pixels
+    char grid[kImageSize][kImageSize];// array storing the image pixels
   };
 
 }// namespace naivebayes

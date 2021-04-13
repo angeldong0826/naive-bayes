@@ -112,31 +112,35 @@ namespace naivebayes {
     return os;
   }
 
-  void Model::LoadData(std::string &file) {
-    std::ifstream my_file;
-    my_file.open(file);
+  std::istream &operator>>(std::istream &is, Model &model) {
     
     for (size_t num = 0; num < kNumClasses; num++) {
       std::string prior;
-      getline(my_file, prior);
-      prior_prob_.push_back(stod(prior));
-      
+      getline(is, prior);
+      model.prior_prob_.push_back(stod(prior));
+
       for (size_t shade = 0; shade < kShadeCount; shade++) {
-        
+
         for (size_t row = 0; row < kImageSize; row++) {
           std::string feature;
-          getline(my_file, feature);
+          getline(is, feature);
           std::stringstream line_stream(feature);
-          
+
           for (size_t col = 0; col < kImageSize; col++) {
             line_stream >> feature;
-            feature_prob_[row][col][num][shade] = std::stod(feature);
+            model.feature_prob_[row][col][num][shade] = std::stod(feature);
           }
         }
       }
     }
-    my_file.close();
   }
+  
+//  void Model::LoadData(std::string &file) {
+//    std::ifstream my_file;
+//    my_file.open(file);
+//    
+//    
+//  }
   
   std::vector<Image> Model::GetImages() {
     return images_;

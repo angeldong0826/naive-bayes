@@ -15,7 +15,8 @@ int main() {
 //  model.TrainModel();
   
   std::string p = "../data/modeltoload.txt";
-  model.LoadData(p);
+  std::ifstream my_file(p);
+  my_file >> model;
   
 //  std::cout << model.feature_prob_[0][0][0][0];
   
