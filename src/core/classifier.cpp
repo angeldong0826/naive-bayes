@@ -40,20 +40,20 @@ namespace naivebayes {
   }
 
   double Classifier::CalculateAccuracyPercentage(Model &model) {
-    predicted_class_.resize(model.images_.size(), 0);
+    predicted_class_.resize(model.GetImages().size(), 0);
 
-    for (size_t i = 0; i < model.images_.size(); i++) {
-      predicted_class_[i] = ReturnPredictedClass(model.images_[i]);
+    for (size_t i = 0; i < model.GetImages().size(); i++) {
+      predicted_class_[i] = ReturnPredictedClass(model.GetImages()[i]);
     }
 
     size_t count = 0;
     for (size_t i = 0; i < predicted_class_.size(); i++) {
-      if (predicted_class_[i] == model.labels_[i]) {
+      if (predicted_class_[i] == model.GetLabels()[i]) {
         count++;
       }
     }
     
-    return static_cast<double>(count) / static_cast<double>(model.images_.size()) * 100;
+    return static_cast<double>(count) / static_cast<double>(model.GetImages().size()) * 100;
   }
 
 }// namespace naivebayes

@@ -13,17 +13,12 @@ namespace naivebayes {
    */
   class Model {
   public:
-
-    std::vector<Image> images_; // vector of individual training images
-    std::vector<size_t> labels_;// vector of labels of training images
-
     std::vector<double> prior_prob_;// vector of priors at a class
     std::vector<size_t> class_;     // vector of number of images that belong to a class
 
     double feature_prob_[kImageSize][kImageSize][kNumClasses][kShadeCount] = {{{{0}}}};
     size_t feature_count_[kImageSize][kImageSize][kNumClasses][kShadeCount] = {{{{0}}}};
 
-    // todo: make methods private
     /**
     * Method that parses images_ from data file_path.
     *
@@ -60,5 +55,23 @@ namespace naivebayes {
      * @param desired_shade 0 being unshaded 1 being shaded
      */
     void CalculateFeatureProbabilities();
+
+    /**
+     * Getter method to get images.
+     * 
+     * @return images vector
+     */
+    std::vector<Image> GetImages();
+    
+    /**
+     * Getter method to get labels.
+     * 
+     * @return labels vector
+     */
+    std::vector<size_t> GetLabels();
+    
+  private:
+    std::vector<Image> images_; // vector of individual training images
+    std::vector<size_t> labels_;// vector of labels of training images
   };
 }// namespace naivebayes

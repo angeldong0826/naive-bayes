@@ -18,7 +18,7 @@ int main() {
 //  std::cout << model.feature_prob_[0][0][0][0];
   naivebayes::Classifier classifier(model);
 
-  std::cout << classifier.CalculateAccuracyPercentage(model) << std::endl;
+  std::cout << classifier.CalculateAccuracyPercentage(model) << "%" << std::endl;
     
 //  std::cout << model.feature_prob_[27][0][0][1] << std::endl;
   

@@ -124,5 +124,13 @@ namespace naivebayes {
     }
     my_file.close();
   }
+  
+  std::vector<Image> Model::GetImages() {
+    return images_;
+  }
+  
+  std::vector<size_t> Model::GetLabels() {
+    return labels_;
+  }
 
 }// namespace naivebayes
