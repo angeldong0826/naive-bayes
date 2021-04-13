@@ -38,7 +38,7 @@ void NaiveBayesApp::keyDown(ci::app::KeyEvent event) {
     case ci::app::KeyEvent::KEY_RETURN: {
       Model model;
       
-      std::string file_path = "../../../../../../data/modeltoload.txt";
+      std::string file_path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoload.txt";
       model.LoadData(file_path);
       
       Classifier classifier(model);

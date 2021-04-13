@@ -1,7 +1,3 @@
-//
-// Created by Angel Dong on 4/11/21.
-//
-
 #include "core/classifier.h"
 
 #include <iostream>

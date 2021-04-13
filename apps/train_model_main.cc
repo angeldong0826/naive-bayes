@@ -6,23 +6,22 @@
 #include <fstream>
 
 int main() {
-  naivebayes::Model model;
+  naivebayes::Model model(28);
   
   std::string path = "../data/testimagesandlabels.txt";
   
   model.ParseImages(path);
 
 //  model.TrainModel();
+  
   std::string p = "../data/modeltoload.txt";
   model.LoadData(p);
+  
 //  std::cout << model.feature_prob_[0][0][0][0];
+  
   naivebayes::Classifier classifier(model);
 
   std::cout << classifier.CalculateAccuracyPercentage(model) << "%" << std::endl;
-    
-//  std::cout << model.feature_prob_[27][0][0][1] << std::endl;
-  
-//  std::cout << model.prior_prob_.size() << std::endl;
   
 //  for (int i = 0; i < 28; i++) {
 //    for (int j = 0; j < 28; ++j) {

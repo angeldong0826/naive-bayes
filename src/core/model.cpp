@@ -4,8 +4,21 @@
 #include <sstream>
 #include <string>
 
-
 namespace naivebayes {
+
+  Model::Model(size_t size) {
+    kImageSize = size;
+    
+    feature_prob_ = std::vector<std::vector<std::vector<std::vector<double>>>>(kImageSize, 
+                std::vector<std::vector<std::vector<double>>>(kImageSize,
+                std::vector<std::vector<double>>(kNumClasses, 
+                std::vector<double>(kShadeCount))));
+
+    feature_count_ = std::vector<std::vector<std::vector<std::vector<size_t>>>>(kImageSize,
+                std::vector<std::vector<std::vector<size_t>>>(kImageSize,
+                std::vector<std::vector<size_t>>(kNumClasses,
+                std::vector<size_t>(kShadeCount))));
+  }
 
   void Model::ParseImages(std::string &file_path) {
     if (file_path.empty()) {

@@ -36,32 +36,33 @@ namespace naivebayes {
   TEST_CASE("Prior probability") {
     Model model;
     std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/smalltestimage.txt";
+    model.ParseImages(path);
 
     model.CalculatePriorProbabilities();
 
-    REQUIRE(model.prior_prob_[0] == Approx(-2.302585));
-    REQUIRE(model.prior_prob_[1] == Approx(-2.302585));
-    REQUIRE(model.prior_prob_[2] == Approx(-2.302585));
-    REQUIRE(model.prior_prob_[3] == Approx(-2.302585));
-    REQUIRE(model.prior_prob_[4] == Approx(-2.302585));
-    REQUIRE(model.prior_prob_[5] == Approx(-2.302585));
-    REQUIRE(model.prior_prob_[6] == Approx(-2.302585));
-    REQUIRE(model.prior_prob_[7] == Approx(-2.302585));
-    REQUIRE(model.prior_prob_[8] == Approx(-2.302585));
-    REQUIRE(model.prior_prob_[9] == Approx(-2.302585));
+    REQUIRE(model.prior_prob_[0] == Approx(-1.8718021769));
+    REQUIRE(model.prior_prob_[1] == Approx(-2.5649493575));
+    REQUIRE(model.prior_prob_[2] == Approx(-2.5649493575));
+    REQUIRE(model.prior_prob_[3] == Approx(-2.5649493575));
+    REQUIRE(model.prior_prob_[4] == Approx(-1.8718021769));
+    REQUIRE(model.prior_prob_[5] == Approx(-1.8718021769));
+    REQUIRE(model.prior_prob_[6] == Approx(-2.5649493575));
+    REQUIRE(model.prior_prob_[7] == Approx(-2.5649493575));
+    REQUIRE(model.prior_prob_[8] == Approx(-2.5649493575));
+    REQUIRE(model.prior_prob_[9] == Approx(-2.5649493575));
 
+    // makes sense because the three images belong to class 0, 4, and 5
   }
-  //
-  //  TEST_CASE("Pixel probability") {
-  //    Model model;
-  //
-  //    std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/smalltestimage.txt";
-  //    model.ParseImages(path);
-  //    model.ParseLabel(path);
-  //
-  //    REQUIRE(model.CalculateFeatureProbabilities() == Approx(-0.6931471));
-  //    REQUIRE(model.CalculateFeatureProbabilities() == Approx(-0.6931471));
-  //  }
+
+    TEST_CASE("Feature probability") {
+      Model model;
+      std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/smalltestimage.txt";
+      model.ParseImages(path);
+
+      model.CalculateFeatureProbabilities();
+
+      REQUIRE(model.feature_prob_[2][0][0][0] == Approx(-0.6931471));
+    }
 
   TEST_CASE("Save data") {
     std::string file_path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/testsavedata.txt";
@@ -79,12 +80,10 @@ namespace naivebayes {
     output.close();
   }
 
-  //  TEST_CASE("Load data") {
-  //    naivebayes::Model model;
-  //    std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/loadfile.txt";
-  //    model.LoadData(path, model);
-  //    REQUIRE(model.CalculatePriorProbabilities(0, path) == Approx(-0.1805083197));
-  //  }
+    TEST_CASE("Load data") {
+      Model model;
+      std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/loadfile.txt";
+      model.LoadData(path);
+      
+    }
 }// namespace naivebayes
-
-// todo: check PL
