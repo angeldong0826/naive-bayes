@@ -10,7 +10,7 @@ namespace visualizer {
 /**
  * A sketchpad which will be displayed in the Cinder application and respond to
  * mouse events. Furthermore, the sketchpad can output its current state in the
- * same format as the Naive Bayes image data files.
+ * same format as the Naive Bayes image_ data files.
  */
 class Sketchpad {
  public:
@@ -50,7 +50,10 @@ class Sketchpad {
    */
   void Clear();
 
- private:
+  const Image GetImage();
+  Image image_;
+
+private:
   glm::vec2 top_left_corner_;
 
   size_t num_pixels_per_side_;
@@ -60,7 +63,6 @@ class Sketchpad {
 
   double brush_radius_;
   
-  Image image;
 };
 
 }  // namespace visualizer

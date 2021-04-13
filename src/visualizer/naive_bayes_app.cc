@@ -35,13 +35,21 @@ void NaiveBayesApp::mouseDrag(ci::app::MouseEvent event) {
 
 void NaiveBayesApp::keyDown(ci::app::KeyEvent event) {
   switch (event.getCode()) {
-    case ci::app::KeyEvent::KEY_RETURN:
-      // ask your classifier to classify the image that's currently drawn on the
-      // sketchpad and update current_prediction_
+    case ci::app::KeyEvent::KEY_RETURN: {
+      Model model;
+      
+      std::string file_path = "../../../../../../data/modeltoload.txt";
+      model.LoadData(file_path);
+      
+      Classifier classifier(model);
+      current_prediction_ = classifier.ReturnPredictedClass(sketchpad_.image_);
+      std::cout << classifier.likelihood_[0] << std::endl;
       break;
+    }
 
     case ci::app::KeyEvent::KEY_DELETE:
       sketchpad_.Clear();
+      current_prediction_ = -1;
       break;
   }
 }

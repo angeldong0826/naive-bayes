@@ -5,6 +5,9 @@
 #include "cinder/gl/gl.h"
 #include "sketchpad.h"
 
+//#include "core/model.h"
+#include "core/classifier.h"
+
 namespace naivebayes {
 
 namespace visualizer {
@@ -29,6 +32,8 @@ class NaiveBayesApp : public ci::app::App {
  private:
   Sketchpad sketchpad_;
   int current_prediction_ = -1;
+  
+//  Image image;
 };
 
 }  // namespace visualizer

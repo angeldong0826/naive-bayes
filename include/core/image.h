@@ -1,5 +1,4 @@
-#ifndef NAIVE_BAYES_IMAGE_H
-#define NAIVE_BAYES_IMAGE_H
+#pragma once
 
 #include <cstddef>
 #include <string>
@@ -7,7 +6,7 @@
 
 namespace naivebayes {
 
-  const size_t kImageSize = 28;// size of each image to be processed
+  const size_t kImageSize = 28;// size of each image_ to be processed
 
   /**
    * Class that encapsulates training images.
@@ -16,7 +15,7 @@ namespace naivebayes {
 
   public:
     /**
-     * Operator overload that converts an image to an array of processed 0's and 1's.
+     * Operator overload that converts an image_ to an array of processed 0's and 1's.
      *
      * @param is input stream
      * @param image
@@ -25,7 +24,7 @@ namespace naivebayes {
     friend std::istream &operator>>(std::istream &is, Image &image);
 
     /**
-     * Getter method that gets the value at index of image grid.
+     * Getter method that gets the value at index of image_ grid.
      * 
      * @param row number
      * @param column number
@@ -36,9 +35,7 @@ namespace naivebayes {
     void SetValue(size_t row, size_t col, size_t value);
     
   private:
-    char grid[kImageSize][kImageSize];// array storing the image pixels
+    char grid[kImageSize][kImageSize];// array storing the image_ pixels
   };
 
 }// namespace naivebayes
-
-#endif//NAIVE_BAYES_IMAGE_H

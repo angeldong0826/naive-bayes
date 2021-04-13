@@ -1,9 +1,4 @@
-//
-// Created by Angel Dong on 4/11/21.
-//
-
-#ifndef NAIVE_BAYES_CLASSIFIER_H
-#define NAIVE_BAYES_CLASSIFIER_H
+#pragma once
 
 #include "core/model.h"
 
@@ -14,16 +9,18 @@ namespace naivebayes {
   class Classifier {
 
   public:
+    explicit Classifier(Model &model);
+    
     std::vector<double> likelihood_;// vector of likelihood of class
     std::vector<size_t> predicted_class_; // vector of predicted class
 
     /**
-     * Method that returns the predicted class of an image.
+     * Method that returns the predicted class of an image_.
      * 
      * @param image to be predicted
-     * @return predicted class of the image
+     * @return predicted class of the image_
      */
-    size_t ReturnPredictedClass(Image &image, const Model &model);
+    int ReturnPredictedClass(Image &image);
 
     /**
      * Method that calculates the accuracy of the predictor.
@@ -32,7 +29,9 @@ namespace naivebayes {
      * @return accuracy of predictor
      */
     double CalculateAccuracyPercentage(Model &model);
+    
+  private:
+    Model &model_;
   };
   
 }// namespace naivebayes
-#endif//NAIVE_BAYES_CLASSIFIER_H

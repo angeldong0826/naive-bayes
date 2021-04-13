@@ -7,15 +7,16 @@
 
 int main() {
   naivebayes::Model model;
-  naivebayes::Classifier classifier;
   
   std::string path = "../data/testimagesandlabels.txt";
   
   model.ParseImages(path);
+
 //  model.TrainModel();
   std::string p = "../data/modeltoload.txt";
   model.LoadData(p);
 //  std::cout << model.feature_prob_[0][0][0][0];
+  naivebayes::Classifier classifier(model);
 
   std::cout << classifier.CalculateAccuracyPercentage(model) << std::endl;
     
@@ -32,7 +33,6 @@ int main() {
   
 //  std::cout << classifier.ReturnPredictedClass(model.images_[0], model) << std::endl;
 //  std::cout << classifier.ReturnPredictedClass(model.images_[1], model) << std::endl;
-//  std::cout << classifier.ReturnPredictedClass(model.images_[2], model) << std::endl;
 //  std::cout << classifier.ReturnPredictedClass(model.images_[2], model) << std::endl;
   
 //  std::string file_path = "../data/modeltoload.txt";

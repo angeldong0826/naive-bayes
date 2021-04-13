@@ -83,9 +83,9 @@ namespace naivebayes {
   }
 
   std::ostream &operator<<(std::ostream &os, Model &model) {
-    for (size_t num = 0; num < Model::kNumClasses; num++) {
+    for (size_t num = 0; num < kNumClasses; num++) {
       os << model.prior_prob_[num] << std::endl;
-      for (size_t shade = 0; shade < Model::kShadeCount; shade++) {
+      for (size_t shade = 0; shade < kShadeCount; shade++) {
         for (size_t row = 0; row < kImageSize; row++) {
           for (size_t col = 0; col < kImageSize; col++) {
             os << model.feature_prob_[row][col][num][shade] << " ";
@@ -99,16 +99,16 @@ namespace naivebayes {
     return os;
   }
 
-  void Model::LoadData(std::string file) {
+  void Model::LoadData(std::string &file) {
     std::ifstream my_file;
     my_file.open(file);
     
-    for (size_t num = 0; num < Model::kNumClasses; num++) {
+    for (size_t num = 0; num < kNumClasses; num++) {
       std::string prior;
       getline(my_file, prior);
       prior_prob_.push_back(stod(prior));
       
-      for (size_t shade = 0; shade < Model::kShadeCount; shade++) {
+      for (size_t shade = 0; shade < kShadeCount; shade++) {
         
         for (size_t row = 0; row < kImageSize; row++) {
           std::string feature;
