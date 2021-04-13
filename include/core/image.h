@@ -31,7 +31,9 @@ namespace naivebayes {
      * @param column number
      * @return value at index
      */
-    char GetValue(size_t row, size_t col);
+    char GetValue(size_t row, size_t col) const;
+    
+    void SetValue(size_t row, size_t col, size_t value);
     
   private:
     char grid[kImageSize][kImageSize];// array storing the image pixels

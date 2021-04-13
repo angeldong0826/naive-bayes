@@ -27,8 +27,12 @@ namespace naivebayes {
     return is;
   }
   
-  char Image::GetValue(size_t row, size_t col) {
+  char Image::GetValue(size_t row, size_t col) const {
     return grid[row][col];
+  }
+  
+  void Image::SetValue(size_t row, size_t col, size_t value) {
+    grid[row][col] = static_cast<char>(value);
   }
 
 }// namespace naivebayes
