@@ -18,15 +18,9 @@ int main() {
   std::ifstream my_file(p);
   my_file >> model;
   
-//  std::cout << model.feature_prob_[0][0][0][0];
-  
   naivebayes::Classifier classifier(model);
 
   std::cout << classifier.CalculateAccuracyPercentage(model) << "%" << std::endl;
-  
-//  std::cout << classifier.ReturnPredictedClass(model.images_[0], model) << std::endl;
-//  std::cout << classifier.ReturnPredictedClass(model.images_[1], model) << std::endl;
-//  std::cout << classifier.ReturnPredictedClass(model.images_[2], model) << std::endl;
   
 //  std::string file_path = "../data/modeltoload.txt";
 //

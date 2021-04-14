@@ -16,7 +16,7 @@ namespace naivebayes {
   public:
     std::vector<double> prior_prob_; // vector of priors at a class
     std::vector<size_t> class_count_;// vector of number of images that belong to a class
-    
+
     std::vector<std::vector<std::vector<std::vector<double>>>> feature_prob_; // 4d vector storing feature probabilities
     std::vector<std::vector<std::vector<std::vector<size_t>>>> feature_count_;// 4d vector storing feature counts
 
