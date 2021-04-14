@@ -56,7 +56,7 @@ namespace naivebayes {
     return likelihood_;
   }
 
-  std::vector<std::vector<size_t>> Classifier::GetConfusionMatrix(std::vector<Image> &images, std::vector<size_t> &labels) {
+  std::vector<std::vector<size_t>> Classifier::GetConfusionMatrix(std::vector<Image> images, std::vector<size_t> labels) {
     std::vector<std::vector<size_t>> grid;
 
     for (size_t row = 0; row < kNumClasses; row++) {

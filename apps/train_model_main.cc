@@ -23,7 +23,7 @@ int main() {
 //  std::cout << classifier.CalculateAccuracyPercentage(model) << "%" << std::endl;
 
   naivebayes::Model model(5);
-  std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/trainingimagesandlabels.txt";
+  std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/customtestimages.txt";
   model.ParseImages(path);
   model.TrainModel();
 

@@ -46,7 +46,7 @@ namespace naivebayes {
      * @param labels 
      * @return 2d vector confusion matrix
      */
-    std::vector<std::vector<size_t>> GetConfusionMatrix(std::vector<Image> &images, std::vector<size_t> &labels);
+    std::vector<std::vector<size_t>> GetConfusionMatrix(std::vector<Image> images, std::vector<size_t> labels);
 
   private:
     Model &model_;                       // instance of model
