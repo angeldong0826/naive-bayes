@@ -10,7 +10,7 @@ namespace naivebayes {
     likelihood_.resize(kNumClasses, 0);
 
     for (size_t num = 0; num < likelihood_.size(); num++) {
-      double likelihood_prob = 0;                // variable that keeps track of the probability to be pushed to likelihood_
+      double likelihood_prob = 0;                   // variable that keeps track of the probability to be pushed to likelihood_
       likelihood_prob += model_.GetPriorProb()[num];// first add prior probability
 
       for (size_t row = 0; row < model_.GetImageSize(); row++) {
@@ -54,6 +54,28 @@ namespace naivebayes {
 
   std::vector<double> Classifier::GetLikelihoodScore() const {
     return likelihood_;
+  }
+
+  std::vector<std::vector<size_t>> Classifier::GetConfusionMatrix(std::vector<Image> &images, std::vector<size_t> &labels) {
+    std::vector<std::vector<size_t>> grid;
+
+    for (size_t row = 0; row < kNumClasses; row++) {
+      std::vector<size_t> vector;// every row initializes a vector, based on number of classes
+
+      for (size_t col = 0; col < kNumClasses; col++) {
+        vector.push_back(0);
+      }
+      
+      grid.push_back(vector);
+    }
+
+    for (size_t image = 0; image < images.size(); image++) {
+
+      size_t actual = labels[image];                         // corresponding label to image at index
+      size_t predicted = ReturnPredictedClass(images[image]);// call on classifier to return predicted class
+      grid[actual][predicted]++;
+    }
+    return grid;
   }
 
 }// namespace naivebayes

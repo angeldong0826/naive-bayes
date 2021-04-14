@@ -39,6 +39,15 @@ namespace naivebayes {
      */
     std::vector<double> GetLikelihoodScore() const;
 
+    /**
+     * Method to get a confusion matrix from data.
+     * 
+     * @param images 
+     * @param labels 
+     * @return 2d vector confusion matrix
+     */
+    std::vector<std::vector<size_t>> GetConfusionMatrix(std::vector<Image> &images, std::vector<size_t> &labels);
+
   private:
     Model &model_;                       // instance of model
     std::vector<double> likelihood_;     // vector of likelihood of class
