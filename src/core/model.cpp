@@ -149,5 +149,17 @@ namespace naivebayes {
   size_t Model::GetImageSize() const {
     return image_size_;
   }
+  
+  std::vector<double> Model::GetPriorProb() const {
+    return prior_prob_;
+  }
+  
+  std::vector<std::vector<std::vector<std::vector<double>>>> Model::GetFeatureProb() const {
+    return feature_prob_;
+  }
+  
+  std::vector<std::vector<std::vector<std::vector<size_t>>>> Model::GetFeatureCount() const {
+    return feature_count_;
+  }
 
 }// namespace naivebayes

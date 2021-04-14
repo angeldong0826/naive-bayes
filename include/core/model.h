@@ -14,11 +14,6 @@ namespace naivebayes {
    */
   class Model {
   public:
-    std::vector<double> prior_prob_; // vector of priors at a class
-    std::vector<size_t> class_count_;// vector of number of images that belong to a class
-
-    std::vector<std::vector<std::vector<std::vector<double>>>> feature_prob_; // 4d vector storing feature probabilities
-    std::vector<std::vector<std::vector<std::vector<size_t>>>> feature_count_;// 4d vector storing feature counts
 
     /**
      * Constructor that sets size of model.
@@ -93,10 +88,37 @@ namespace naivebayes {
      */
     size_t GetImageSize() const;
 
+    /**
+     * Getter method for prior probabilities.
+     * 
+     * @return vector of prior probabilities
+     */
+    std::vector<double> GetPriorProb() const;
+
+    /**
+     * Getter method for feature probabilities.
+     * 
+     * @return 4d vector of feature probabilities
+     */
+    std::vector<std::vector<std::vector<std::vector<double>>>> GetFeatureProb() const;
+
+    /**
+     * Getter method for feature counts.
+     * 
+     * @return 4d vector of feature counts
+     */
+    std::vector<std::vector<std::vector<std::vector<size_t>>>> GetFeatureCount() const;
+    
   private:
     std::vector<Image> images_; // vector of individual training images
     std::vector<size_t> labels_;// vector of labels of training images
     size_t image_size_;         // size of images
+
+    std::vector<double> prior_prob_; // vector of priors at a class
+    std::vector<size_t> class_count_;// vector of number of images that belong to a class
+
+    std::vector<std::vector<std::vector<std::vector<double>>>> feature_prob_; // 4d vector storing feature probabilities
+    std::vector<std::vector<std::vector<std::vector<size_t>>>> feature_count_;// 4d vector storing feature counts
   };
 
 }// namespace naivebayes

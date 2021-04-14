@@ -23,7 +23,7 @@ namespace naivebayes {
                                                  {0, 0, 0, 0, 0}};
       image.SetGridVector(vector);
       classifier.ReturnPredictedClass(image);
-      
+
       REQUIRE(classifier.GetLikelihoodScore()[0] == Approx(-12.439215));// highest likelihood
       REQUIRE(classifier.GetLikelihoodScore()[1] == Approx(-17.29123));
       REQUIRE(classifier.GetLikelihoodScore()[2] == Approx(-20.06381));
@@ -35,7 +35,7 @@ namespace naivebayes {
       REQUIRE(classifier.GetLikelihoodScore()[8] == Approx(-20.06381));
       REQUIRE(classifier.GetLikelihoodScore()[9] == Approx(-17.984375));
     }
-    
+
     SECTION("One") {
       std::vector<std::vector<size_t>> vector = {{0, 1, 1, 0, 0},
                                                  {0, 0, 1, 0, 0},
@@ -85,7 +85,7 @@ namespace naivebayes {
     std::string p = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoloadfortest.txt";
     std::ifstream my_file(p);
     my_file >> model;
-    
+
     SECTION("Zero") {
       Image image(5);
       Classifier classifier(model);
