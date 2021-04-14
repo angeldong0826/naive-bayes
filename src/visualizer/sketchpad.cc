@@ -11,7 +11,10 @@ Sketchpad::Sketchpad(const vec2& top_left_corner, size_t num_pixels_per_side,
     : top_left_corner_(top_left_corner),
       num_pixels_per_side_(num_pixels_per_side),
       pixel_side_length_(sketchpad_size / static_cast<double>(num_pixels_per_side)),
-      brush_radius_(brush_radius) {}
+      brush_radius_(brush_radius) {
+  image_.SetImageSize(num_pixels_per_side);
+  image_.SetGridSize(num_pixels_per_side);
+}
 
 void Sketchpad::Draw() const {
   for (size_t row = 0; row < num_pixels_per_side_; ++row) {
@@ -62,10 +65,6 @@ void Sketchpad::Clear() {
       image_.SetValue(row, col, 0);
     }
   }
-}
-
-const Image Sketchpad::GetImage() {
-  return image_;
 }
 
 }  // namespace visualizer

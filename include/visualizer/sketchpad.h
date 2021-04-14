@@ -49,9 +49,8 @@ class Sketchpad {
    * Set all of the sketchpad pixels to an unshaded state.
    */
   void Clear();
-
-  const Image GetImage();
-  Image image_;
+  
+  Image image_; // instance of image
 
 private:
   glm::vec2 top_left_corner_;

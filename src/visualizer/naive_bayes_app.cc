@@ -36,14 +36,14 @@ void NaiveBayesApp::mouseDrag(ci::app::MouseEvent event) {
 void NaiveBayesApp::keyDown(ci::app::KeyEvent event) {
   switch (event.getCode()) {
     case ci::app::KeyEvent::KEY_RETURN: {
-      Model model;
+      Model model(kImageDimension);
       
       std::string file_path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoload.txt";
-      model.LoadData(file_path);
+      std::ifstream stream(file_path);
+      stream >> model;
       
       Classifier classifier(model);
       current_prediction_ = classifier.ReturnPredictedClass(sketchpad_.image_);
-      std::cout << classifier.likelihood_[0] << std::endl;
       break;
     }
 

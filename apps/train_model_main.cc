@@ -24,13 +24,6 @@ int main() {
 
   std::cout << classifier.CalculateAccuracyPercentage(model) << "%" << std::endl;
   
-//  for (int i = 0; i < 28; i++) {
-//    for (int j = 0; j < 28; ++j) {
-//      std::cout << model.images_[0].grid[i][j];
-//    }
-//    std::cout << std::endl;
-//  }
-  
 //  std::cout << classifier.ReturnPredictedClass(model.images_[0], model) << std::endl;
 //  std::cout << classifier.ReturnPredictedClass(model.images_[1], model) << std::endl;
 //  std::cout << classifier.ReturnPredictedClass(model.images_[2], model) << std::endl;

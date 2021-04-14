@@ -8,7 +8,7 @@ namespace naivebayes {
 
   TEST_CASE("Parse Image") {
     std::vector<Image> vector;
-    Model model;
+    Model model(28);
     std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/smalltestimage.txt";
     model.ParseImages(path);
 
@@ -22,7 +22,7 @@ namespace naivebayes {
   }
 
   TEST_CASE("Parse Label") {
-    Model model;
+    Model model(28);
     std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/smalltestimage.txt";
     model.ParseImages(path);
 
@@ -34,7 +34,7 @@ namespace naivebayes {
   }
 
   TEST_CASE("Prior probability") {
-    Model model;
+    Model model(28);
     std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/smalltestimage.txt";
     model.ParseImages(path);
 
@@ -55,7 +55,7 @@ namespace naivebayes {
   }
 
     TEST_CASE("Feature probability") {
-      Model model;
+      Model model(28);
       std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/smalltestimage.txt";
       model.ParseImages(path);
 
@@ -69,7 +69,7 @@ namespace naivebayes {
 
     std::ofstream output(file_path);
 
-    Model model;
+    Model model(28);
     model.TrainModel();
 
     if (output.is_open()) {
@@ -80,10 +80,10 @@ namespace naivebayes {
     output.close();
   }
 
-    TEST_CASE("Load data") {
-      Model model;
-      std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/loadfile.txt";
-      model.LoadData(path);
-      
-    }
+//    TEST_CASE("Load data") {
+//      Model model(28);
+//      std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/loadfile.txt";
+//      model.LoadData(path);
+//      
+//    }
 }// namespace naivebayes

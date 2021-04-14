@@ -7,17 +7,17 @@
 namespace naivebayes {
 
   Model::Model(size_t size) {
-    kImageSize = size;
-    
-    feature_prob_ = std::vector<std::vector<std::vector<std::vector<double>>>>(kImageSize, 
-                std::vector<std::vector<std::vector<double>>>(kImageSize,
-                std::vector<std::vector<double>>(kNumClasses, 
-                std::vector<double>(kShadeCount))));
+    image_size_ = size;
 
-    feature_count_ = std::vector<std::vector<std::vector<std::vector<size_t>>>>(kImageSize,
-                std::vector<std::vector<std::vector<size_t>>>(kImageSize,
-                std::vector<std::vector<size_t>>(kNumClasses,
-                std::vector<size_t>(kShadeCount))));
+    feature_prob_ = std::vector<std::vector<std::vector<std::vector<double>>>>(image_size_,
+                 std::vector<std::vector<std::vector<double>>>(image_size_,
+                 std::vector<std::vector<double>>(kNumClasses,
+                 std::vector<double>(kShadeCount))));
+
+    feature_count_ = std::vector<std::vector<std::vector<std::vector<size_t>>>>(image_size_,
+                  std::vector<std::vector<std::vector<size_t>>>(image_size_,
+                  std::vector<std::vector<size_t>>(kNumClasses,
+                  std::vector<size_t>(kShadeCount))));
   }
 
   void Model::ParseImages(std::string &file_path) {
@@ -40,7 +40,7 @@ namespace naivebayes {
 
       labels_.push_back(std::stoi(line));
 
-      Image image{};
+      Image image(image_size_);
       read >> image;
       images_.push_back(image);
     }
@@ -54,22 +54,22 @@ namespace naivebayes {
     for (Image &image : images_) {
       size_t class_num = labels_[idx];
 
-      for (size_t row = 0; row < kImageSize; row++) {
-        for (size_t col = 0; col < kImageSize; col++) {
-          size_t shade = image.GetValue(row, col) - '0';
+      for (size_t row = 0; row < image_size_; row++) {
+        for (size_t col = 0; col < image_size_; col++) {
+          size_t shade = image.GetValue(row, col);
           feature_count_[row][col][class_num][shade]++;
         }
       }
       idx++;
     }
 
-    for (size_t row = 0; row < kImageSize; row++) {
-      for (size_t col = 0; col < kImageSize; col++) {
+    for (size_t row = 0; row < image_size_; row++) {
+      for (size_t col = 0; col < image_size_; col++) {
         for (size_t class_num = 0; class_num < kNumClasses; class_num++) {
           for (size_t shade = 0; shade < kShadeCount; shade++) {
 
             feature_prob_[row][col][class_num][shade] = log((kSmoothingFactor + static_cast<double>(feature_count_[row][col][class_num][shade])) /
-                                                            (2 * kSmoothingFactor + static_cast<double>(class_[class_num])));
+                                                            (2 * kSmoothingFactor + static_cast<double>(class_count_[class_num])));
           }
         }
       }
@@ -82,25 +82,26 @@ namespace naivebayes {
   }
 
   void Model::CalculatePriorProbabilities() {
-    class_ = std::vector<size_t>(kNumClasses);     // set size to vector
+    class_count_ = std::vector<size_t>(kNumClasses);     // set size to vector
     prior_prob_ = std::vector<double>(kNumClasses);// set size to vector
 
     for (size_t label : labels_) {
-      class_[label]++;
+      class_count_[label]++;
     }
 
     for (size_t i = 0; i < kNumClasses; i++) {
-      prior_prob_[i] = log((kSmoothingFactor + static_cast<double>(class_[i])) /
+      prior_prob_[i] = log((kSmoothingFactor + static_cast<double>(class_count_[i])) /
                            (kNumClasses * kSmoothingFactor + static_cast<double>(labels_.size())));
     }
   }
 
   std::ostream &operator<<(std::ostream &os, Model &model) {
+    
     for (size_t num = 0; num < kNumClasses; num++) {
       os << model.prior_prob_[num] << std::endl;
       for (size_t shade = 0; shade < kShadeCount; shade++) {
-        for (size_t row = 0; row < kImageSize; row++) {
-          for (size_t col = 0; col < kImageSize; col++) {
+        for (size_t row = 0; row < model.image_size_; row++) {
+          for (size_t col = 0; col < model.image_size_; col++) {
             os << model.feature_prob_[row][col][num][shade] << " ";
           }
 
@@ -113,7 +114,7 @@ namespace naivebayes {
   }
 
   std::istream &operator>>(std::istream &is, Model &model) {
-    
+
     for (size_t num = 0; num < kNumClasses; num++) {
       std::string prior;
       getline(is, prior);
@@ -121,33 +122,31 @@ namespace naivebayes {
 
       for (size_t shade = 0; shade < kShadeCount; shade++) {
 
-        for (size_t row = 0; row < kImageSize; row++) {
+        for (size_t row = 0; row < model.image_size_; row++) {
           std::string feature;
           getline(is, feature);
           std::stringstream line_stream(feature);
 
-          for (size_t col = 0; col < kImageSize; col++) {
+          for (size_t col = 0; col < model.image_size_; col++) {
             line_stream >> feature;
             model.feature_prob_[row][col][num][shade] = std::stod(feature);
           }
         }
       }
     }
+    return is;
   }
-  
-//  void Model::LoadData(std::string &file) {
-//    std::ifstream my_file;
-//    my_file.open(file);
-//    
-//    
-//  }
-  
-  std::vector<Image> Model::GetImages() {
+
+  std::vector<Image> Model::GetImages() const {
     return images_;
   }
-  
-  std::vector<size_t> Model::GetLabels() {
+
+  std::vector<size_t> Model::GetLabels() const {
     return labels_;
+  }
+
+  size_t Model::GetImageSize() const {
+    return image_size_;
   }
 
 }// namespace naivebayes
