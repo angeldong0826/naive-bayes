@@ -155,31 +155,35 @@ namespace naivebayes {
     }
   }
 
-  TEST_CASE("Save data") {
-    std::string file_path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/testsavedata.txt";
+  TEST_CASE("Operator overload") {
+    SECTION("Save Data <<") {
+      Model model(5);
 
-    std::ofstream output(file_path);
+      std::string file = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/customtestimages.txt";
+      model.ParseImages(file);
+      model.TrainModel();
 
-    Model model(28);
-    model.TrainModel();
+      std::string file_path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoloadfortest.txt";
+      std::ofstream output(file_path);
+      
+      if (output.is_open()) {
+        output << model;
+      }
 
-    if (output.is_open()) {
-      output << model;
+      REQUIRE(output.is_open());
+      output.close();
     }
 
-    REQUIRE(output.is_open());
-    output.close();
-  }
+    SECTION("Load Data >>") {
+      Model model(5);
 
-  TEST_CASE("Load data") {
-    Model model(28);
+      std::string p = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoloadfortest.txt";
+      std::ifstream my_file(p);
+      my_file >> model;
 
-    std::string p = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoload.txt";
-    std::ifstream my_file(p);
-    my_file >> model;
-    
-    REQUIRE(my_file.is_open());
-    my_file.close();
+      REQUIRE(my_file.is_open());
+      my_file.close();
+    }
   }
   
 }// namespace naivebayes

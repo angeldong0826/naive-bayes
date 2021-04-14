@@ -32,6 +32,13 @@ namespace naivebayes {
      */
     double CalculateAccuracyPercentage(Model &model);
 
+    /**
+     * Getter method to retrieve likelihood.
+     * 
+     * @return likelihood
+     */
+    std::vector<double> GetLikelihoodScore() const;
+
   private:
     Model &model_;                       // instance of model
     std::vector<double> likelihood_;     // vector of likelihood of class

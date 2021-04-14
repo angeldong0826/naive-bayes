@@ -11,7 +11,7 @@ namespace naivebayes {
    */
   class Image {
   public:
-    Image();
+    Image(); // default constructor
     /**
      * Image constructor that sets the image size.
      * 
@@ -59,6 +59,13 @@ namespace naivebayes {
      * @param size to be set 
      */
     void SetGridSize(size_t size);
+
+    /**
+     * Setter to fill in grid vector for testing.
+     * 
+     * @param grid to be filled
+     */
+    void SetGridVector(std::vector<std::vector<size_t>> grid);
 
   private:
     std::vector<std::vector<size_t>> grid_;// vector storing the image pixels

@@ -49,5 +49,13 @@ namespace naivebayes {
   void Image::SetGridSize(size_t size) {
     grid_ = std::vector<std::vector<size_t>>(size, std::vector<size_t>(size));
   }
+  
+  void Image::SetGridVector(std::vector<std::vector<size_t>> grid) {
+    for (size_t row = 0; row < image_size_; row++) {
+      for (size_t col = 0; col < image_size_; col++) {
+        grid_[row][col] = grid[row][col];
+      }
+    }
+  }
 
 }// namespace naivebayes

@@ -52,4 +52,8 @@ namespace naivebayes {
     return static_cast<double>(count) / static_cast<double>(model.GetImages().size()) * 100;
   }
 
+  std::vector<double> Classifier::GetLikelihoodScore() const {
+    return likelihood_;
+  }
+
 }// namespace naivebayes
