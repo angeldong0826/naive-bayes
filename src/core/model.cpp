@@ -36,13 +36,13 @@ namespace naivebayes {
 
     while (!read.eof()) {// while not reached the end of file
       std::string line;
-      std::getline(read, line);
+      std::getline(read, line);// labels are in first line
 
-      labels_.push_back(std::stoi(line));
+      labels_.push_back(std::stoi(line));// push back parse label to labels vector to store as one unit
 
       Image image(image_size_);
-      read >> image;
-      images_.push_back(image);
+      read >> image;           // rest of the lines are image- use image overloading operator to process
+      images_.push_back(image);// push back parsed image to images vector to store as one unit
     }
 
     read.close();
@@ -57,7 +57,7 @@ namespace naivebayes {
       for (size_t row = 0; row < image_size_; row++) {
         for (size_t col = 0; col < image_size_; col++) {
           size_t shade = image.GetValue(row, col);
-          feature_count_[row][col][class_num][shade]++;
+          feature_count_[row][col][class_num][shade]++;// counts number of feature at index
         }
       }
       idx++;
@@ -82,11 +82,11 @@ namespace naivebayes {
   }
 
   void Model::CalculatePriorProbabilities() {
-    class_count_ = std::vector<size_t>(kNumClasses);     // set size to vector
-    prior_prob_ = std::vector<double>(kNumClasses);// set size to vector
+    class_count_ = std::vector<size_t>(kNumClasses);// set size to vector
+    prior_prob_ = std::vector<double>(kNumClasses); // set size to vector
 
     for (size_t label : labels_) {
-      class_count_[label]++;
+      class_count_[label]++;// counts number of images in class
     }
 
     for (size_t i = 0; i < kNumClasses; i++) {
@@ -96,13 +96,14 @@ namespace naivebayes {
   }
 
   std::ostream &operator<<(std::ostream &os, Model &model) {
-    
+
     for (size_t num = 0; num < kNumClasses; num++) {
-      os << model.prior_prob_[num] << std::endl;
+      os << model.prior_prob_[num] << std::endl; // first line is always the prior probability
+
       for (size_t shade = 0; shade < kShadeCount; shade++) {
         for (size_t row = 0; row < model.image_size_; row++) {
           for (size_t col = 0; col < model.image_size_; col++) {
-            os << model.feature_prob_[row][col][num][shade] << " ";
+            os << model.feature_prob_[row][col][num][shade] << " "; // starting from second to image size store feature probability
           }
 
           os << std::endl;
@@ -118,7 +119,7 @@ namespace naivebayes {
     for (size_t num = 0; num < kNumClasses; num++) {
       std::string prior;
       getline(is, prior);
-      model.prior_prob_.push_back(stod(prior));
+      model.prior_prob_.push_back(stod(prior)); // first line is prior probability
 
       for (size_t shade = 0; shade < kShadeCount; shade++) {
 
@@ -129,7 +130,7 @@ namespace naivebayes {
 
           for (size_t col = 0; col < model.image_size_; col++) {
             line_stream >> feature;
-            model.feature_prob_[row][col][num][shade] = std::stod(feature);
+            model.feature_prob_[row][col][num][shade] = std::stod(feature); // starting from second to image size store feature probability
           }
         }
       }

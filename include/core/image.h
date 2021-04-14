@@ -18,7 +18,7 @@ namespace naivebayes {
      * @param image_size to be set
      */
     Image(size_t image_size);
-    
+
     /**
      * Operator overload that converts an image_ to an array of processed 0's and 1's.
      *
@@ -40,19 +40,29 @@ namespace naivebayes {
     /**
      * Setter method to set value to index of image.
      * 
-     * @param row 
-     * @param col 
-     * @param value 
+     * @param row number
+     * @param column number
+     * @param value to set
      */
     void SetValue(size_t row, size_t col, size_t value);
 
+    /**
+     * Setter method to set image size.
+     * 
+     * @param size to be set
+     */
     void SetImageSize(size_t size);
-    
+
+    /**
+     * Setter method to set grid size.
+     * 
+     * @param size to be set 
+     */
     void SetGridSize(size_t size);
-    
+
   private:
     std::vector<std::vector<size_t>> grid_;// vector storing the image pixels
-    size_t image_size_;// size of image
+    size_t image_size_;                    // size of image
   };
 
 }// namespace naivebayes

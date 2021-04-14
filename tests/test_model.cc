@@ -13,7 +13,7 @@ namespace naivebayes {
     model.ParseImages(path);
 
     REQUIRE(model.GetImages().size() == 3);
-    REQUIRE(model.GetImages()[0].GetValue(0, 0) == '0');
+    REQUIRE(model.GetImages()[0].GetValue(0, 0) == 0);
     REQUIRE_FALSE(model.GetImages()[0].GetValue(0, 0) == '1');
     REQUIRE(model.GetImages()[0].GetValue(10, 11) == '1');
     REQUIRE_FALSE(model.GetImages()[0].GetValue(10, 11) == '0');

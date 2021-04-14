@@ -31,12 +31,10 @@ namespace naivebayes {
      * @return accuracy of predictor
      */
     double CalculateAccuracyPercentage(Model &model);
-
-    std::vector<double> likelihood_;
-
+    
   private:
     Model &model_;                       // instance of model
-    // vector of likelihood of class
+    std::vector<double> likelihood_;     // vector of likelihood of class
     std::vector<size_t> predicted_class_;// vector of predicted class
   };
 

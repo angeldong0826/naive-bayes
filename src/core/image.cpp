@@ -4,9 +4,9 @@
 #include <string>
 
 namespace naivebayes {
-  
+
   Image::Image() {}
-  
+
   Image::Image(size_t image_size) {
     image_size_ = image_size;
     grid_ = std::vector<std::vector<size_t>>(image_size_, std::vector<size_t>(image_size_));
@@ -20,12 +20,12 @@ namespace naivebayes {
       for (int i = 0; i < line.length(); ++i) {
 
         if (line[i] == '+' || line[i] == '#') {
-          image.grid_[count % image.image_size_][i] = 1;
+          image.grid_[count % image.image_size_][i] = 1;// shaded
         } else {
-          image.grid_[count % image.image_size_][i] = 0;
+          image.grid_[count % image.image_size_][i] = 0;// unshaded
         }
       }
-      if (count == image.image_size_ - 1) {
+      if (count == image.image_size_ - 1) {// last line
         break;
       }
     }
@@ -41,11 +41,11 @@ namespace naivebayes {
   void Image::SetValue(size_t row, size_t col, size_t value) {
     grid_[row][col] = value;
   }
-  
+
   void Image::SetImageSize(size_t size) {
     image_size_ = size;
   }
-  
+
   void Image::SetGridSize(size_t size) {
     grid_ = std::vector<std::vector<size_t>>(size, std::vector<size_t>(size));
   }

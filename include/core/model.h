@@ -5,7 +5,7 @@
 
 namespace naivebayes {
 
-  const constexpr double kSmoothingFactor = 1.0;// la place smoothing factor
+  const constexpr double kSmoothingFactor = 1.0;// laplace smoothing factor
   const size_t kNumClasses = 10;                // number of classes that images_ can belong to
   const size_t kShadeCount = 2;                 // number-coded shade. 0 being unshaded and 1 being shaded
 
