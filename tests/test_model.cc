@@ -3,6 +3,7 @@
 #include "core/image.h"
 #include <core/model.h>
 #include <fstream>
+#include <iostream>
 
 namespace naivebayes {
 
@@ -172,6 +173,28 @@ namespace naivebayes {
 
       REQUIRE(output.is_open());
       output.close();
+
+      std::string expected_file = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/expectedsavefile.txt";
+      std::ifstream read;
+      read.open(expected_file);
+      
+      std::string a;
+      std::string expected;
+      while (read >> expected) {
+        a += expected;
+      }
+
+      std::string actual_file = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/expectedsavefile.txt";
+      std::ifstream read_actual;
+      read_actual.open(actual_file);
+      
+      std::string b;
+      std::string actual;
+      while (read_actual >> actual) {
+        b += actual;
+      }
+
+      REQUIRE(a == b);
     }
 
     SECTION("Load Data >>") {
