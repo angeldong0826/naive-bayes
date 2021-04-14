@@ -229,4 +229,46 @@ namespace naivebayes {
     REQUIRE(classifier.CalculateAccuracyPercentage(model) == 100.0);
   }
 
+  TEST_CASE("Confusion Matrix") {
+    naivebayes::Model model(5);
+    std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/customtestimages.txt";
+    model.ParseImages(path);
+    model.TrainModel();
+
+    REQUIRE(model.GetImages().size() == 10);
+    REQUIRE(model.GetLabels().size() == 10);
+
+    naivebayes::Classifier classifier(model);
+    
+    std::vector<std::vector<size_t>> matrix = classifier.GetConfusionMatrix(model.GetImages(), model.GetLabels());
+
+    // confusion matrix:
+    // 1 0 0 0 0 0 0 0 0 0
+    // 0 1 0 0 0 0 0 0 0 0
+    // 0 0 1 0 0 0 0 0 0 0
+    // 0 0 0 1 0 0 0 0 0 0
+    // 0 0 0 0 1 0 0 0 0 0
+    // 0 0 0 0 0 1 0 0 0 0
+    // 0 0 0 0 0 0 1 0 0 0
+    // 0 0 0 0 0 0 0 1 0 0
+    // 0 0 0 0 0 0 0 0 1 0
+    // 0 0 0 0 0 0 0 0 0 1
+    
+    // should be completely accurate
+
+    REQUIRE(matrix[0][0] == 1);
+    REQUIRE(matrix[0][1] == 0);
+    REQUIRE(matrix[0][9] == 0);
+    REQUIRE(matrix[1][1] == 1);
+    REQUIRE(matrix[2][2] == 1);
+    REQUIRE(matrix[3][3] == 1);
+    REQUIRE(matrix[4][4] == 1);
+    REQUIRE(matrix[5][5] == 1);
+    REQUIRE(matrix[6][6] == 1);
+    REQUIRE(matrix[7][7] == 1);
+    REQUIRE(matrix[8][8] == 1);
+    REQUIRE(matrix[9][9] == 1);
+    REQUIRE(matrix[9][8] == 0);
+  }
+
 }// namespace naivebayes
