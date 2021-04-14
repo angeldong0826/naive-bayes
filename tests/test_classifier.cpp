@@ -7,15 +7,36 @@
 namespace naivebayes {
 
   TEST_CASE("Likelihood score") {
-    SECTION("one") {
-      Model model(5);
-      std::string p = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoloadfortest.txt";
-      std::ifstream my_file(p);
-      my_file >> model;
+    Model model(5);
+    std::string p = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoloadfortest.txt";
+    std::ifstream my_file(p);
+    my_file >> model;
 
-      Image image(5);
-      Classifier classifier(model);
+    Image image(5);
+    Classifier classifier(model);
 
+    SECTION("Zero") {
+      std::vector<std::vector<size_t>> vector = {{0, 0, 0, 0, 0},
+                                                 {0, 1, 1, 1, 0},
+                                                 {0, 1, 0, 1, 0},
+                                                 {0, 1, 1, 1, 0},
+                                                 {0, 0, 0, 0, 0}};
+      image.SetGridVector(vector);
+      classifier.ReturnPredictedClass(image);
+      
+      REQUIRE(classifier.GetLikelihoodScore()[0] == Approx(-12.439215));// highest likelihood
+      REQUIRE(classifier.GetLikelihoodScore()[1] == Approx(-17.29123));
+      REQUIRE(classifier.GetLikelihoodScore()[2] == Approx(-20.06381));
+      REQUIRE(classifier.GetLikelihoodScore()[3] == Approx(-20.06381));
+      REQUIRE(classifier.GetLikelihoodScore()[4] == Approx(-20.06381));
+      REQUIRE(classifier.GetLikelihoodScore()[5] == Approx(-26.99526));
+      REQUIRE(classifier.GetLikelihoodScore()[6] == Approx(-27.688405));
+      REQUIRE(classifier.GetLikelihoodScore()[7] == Approx(-19.370665));
+      REQUIRE(classifier.GetLikelihoodScore()[8] == Approx(-20.06381));
+      REQUIRE(classifier.GetLikelihoodScore()[9] == Approx(-17.984375));
+    }
+    
+    SECTION("One") {
       std::vector<std::vector<size_t>> vector = {{0, 1, 1, 0, 0},
                                                  {0, 0, 1, 0, 0},
                                                  {0, 0, 1, 0, 0},
@@ -37,14 +58,6 @@ namespace naivebayes {
     }
 
     SECTION("Five") {
-      Model model(5);
-      std::string p = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoloadfortest.txt";
-      std::ifstream my_file(p);
-      my_file >> model;
-
-      Image image(5);
-      Classifier classifier(model);
-
       std::vector<std::vector<size_t>> vector = {{1, 1, 1, 1, 1},
                                                  {1, 0, 0, 0, 0},
                                                  {1, 1, 1, 1, 1},
@@ -67,13 +80,13 @@ namespace naivebayes {
     }
   }
 
-  TEST_CASE("Predict Class") {
+  TEST_CASE("Predicted Class") {
+    Model model(5);
+    std::string p = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoloadfortest.txt";
+    std::ifstream my_file(p);
+    my_file >> model;
+    
     SECTION("Zero") {
-      Model model(5);
-      std::string p = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoloadfortest.txt";
-      std::ifstream my_file(p);
-      my_file >> model;
-
       Image image(5);
       Classifier classifier(model);
 
@@ -85,13 +98,8 @@ namespace naivebayes {
       image.SetGridVector(vector);
       REQUIRE(classifier.ReturnPredictedClass(image) == 0);
     }
-    
-    SECTION("One") {
-      Model model(5);
-      std::string p = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoloadfortest.txt";
-      std::ifstream my_file(p);
-      my_file >> model;
 
+    SECTION("One") {
       Image image(5);
       Classifier classifier(model);
 
@@ -105,11 +113,6 @@ namespace naivebayes {
     }
 
     SECTION("Two") {
-      Model model(5);
-      std::string p = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoloadfortest.txt";
-      std::ifstream my_file(p);
-      my_file >> model;
-
       Image image(5);
       Classifier classifier(model);
 
@@ -123,11 +126,6 @@ namespace naivebayes {
     }
 
     SECTION("Three") {
-      Model model(5);
-      std::string p = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoloadfortest.txt";
-      std::ifstream my_file(p);
-      my_file >> model;
-
       Image image(5);
       Classifier classifier(model);
 
@@ -141,11 +139,6 @@ namespace naivebayes {
     }
 
     SECTION("Four") {
-      Model model(5);
-      std::string p = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoloadfortest.txt";
-      std::ifstream my_file(p);
-      my_file >> model;
-
       Image image(5);
       Classifier classifier(model);
 
@@ -159,11 +152,6 @@ namespace naivebayes {
     }
 
     SECTION("Five") {
-      Model model(5);
-      std::string p = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoloadfortest.txt";
-      std::ifstream my_file(p);
-      my_file >> model;
-
       Image image(5);
       Classifier classifier(model);
 
@@ -178,11 +166,6 @@ namespace naivebayes {
     }
 
     SECTION("Six") {
-      Model model(5);
-      std::string p = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoloadfortest.txt";
-      std::ifstream my_file(p);
-      my_file >> model;
-
       Image image(5);
       Classifier classifier(model);
 
@@ -196,11 +179,6 @@ namespace naivebayes {
     }
 
     SECTION("Seven") {
-      Model model(5);
-      std::string p = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoloadfortest.txt";
-      std::ifstream my_file(p);
-      my_file >> model;
-
       Image image(5);
       Classifier classifier(model);
 
@@ -214,11 +192,6 @@ namespace naivebayes {
     }
 
     SECTION("Eight") {
-      Model model(5);
-      std::string p = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoloadfortest.txt";
-      std::ifstream my_file(p);
-      my_file >> model;
-
       Image image(5);
       Classifier classifier(model);
 
@@ -232,11 +205,6 @@ namespace naivebayes {
     }
 
     SECTION("Nine") {
-      Model model(5);
-      std::string p = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoloadfortest.txt";
-      std::ifstream my_file(p);
-      my_file >> model;
-
       Image image(5);
       Classifier classifier(model);
 
@@ -260,5 +228,5 @@ namespace naivebayes {
     Classifier classifier(model);
     REQUIRE(classifier.CalculateAccuracyPercentage(model) == 100.0);
   }
-  
+
 }// namespace naivebayes

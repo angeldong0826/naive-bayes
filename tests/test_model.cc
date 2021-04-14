@@ -54,7 +54,7 @@ namespace naivebayes {
       REQUIRE(model.GetImages()[0].GetValue(4, 4) == 0);
     }
   }
-  
+
   TEST_CASE("Parse Labels") {
     SECTION("28 x 28") {
       Model model(28);
@@ -86,7 +86,7 @@ namespace naivebayes {
       REQUIRE(model.GetLabels()[9] == 6);
     }
   }
-  
+
   TEST_CASE("Prior probabilities") {
     SECTION("28 x 28") {
       Model model(28);
@@ -142,14 +142,14 @@ namespace naivebayes {
       REQUIRE(model.feature_prob_[0][0][0][0] == Approx(-0.4054651081));
       REQUIRE(model.feature_prob_[0][1][2][0] == Approx(-0.6931471806));
     }
-    
+
     SECTION("5 x 5") {
       Model model(5);
       std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/customtestimages.txt";
       model.ParseImages(path);
-      
+
       model.TrainModel();
-      
+
       REQUIRE(model.feature_prob_[0][0][4][0] == Approx(-1.0986122887));
       REQUIRE(model.feature_prob_[1][0][2][0] == Approx(-0.4054651081));
     }
@@ -165,7 +165,7 @@ namespace naivebayes {
 
       std::string file_path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoloadfortest.txt";
       std::ofstream output(file_path);
-      
+
       if (output.is_open()) {
         output << model;
       }
@@ -185,5 +185,5 @@ namespace naivebayes {
       my_file.close();
     }
   }
-  
+
 }// namespace naivebayes
