@@ -219,14 +219,35 @@ namespace naivebayes {
   }
 
   TEST_CASE("Accuracy Percentage") {
-    Model model(5);
+    SECTION("<70% test") {
+      naivebayes::Model model(28);
 
-    std::string file = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/customtestimages.txt";
-    model.ParseImages(file);
-    model.TrainModel();
+      std::string path = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/testimagesandlabels.txt";
 
-    Classifier classifier(model);
-    REQUIRE(classifier.CalculateAccuracyPercentage(model) == 100.0);
+      model.ParseImages(path);
+      model.TrainModel();
+
+      std::string p = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/modeltoload.txt";
+      std::ifstream my_file(p);
+      my_file >> model;
+
+      naivebayes::Classifier classifier(model);
+
+      REQUIRE(classifier.CalculateAccuracyPercentage(model) == Approx(77.1));
+    }
+
+    SECTION("100% custom test file") {
+      Model model(5);
+
+      std::string file = "/Users/angeldong/CLionProjects/Cinder/my-projects/naive-bayes-angeldong0826/data/customtestimages.txt";
+
+      model.ParseImages(file);
+      model.TrainModel();
+
+      Classifier classifier(model);
+
+      REQUIRE(classifier.CalculateAccuracyPercentage(model) == 100.0);
+    }
   }
 
   TEST_CASE("Confusion Matrix") {
@@ -239,7 +260,7 @@ namespace naivebayes {
     REQUIRE(model.GetLabels().size() == 10);
 
     naivebayes::Classifier classifier(model);
-    
+
     std::vector<std::vector<size_t>> matrix = classifier.GetConfusionMatrix(model.GetImages(), model.GetLabels());
 
     // confusion matrix:
@@ -253,8 +274,8 @@ namespace naivebayes {
     // 0 0 0 0 0 0 0 1 0 0
     // 0 0 0 0 0 0 0 0 1 0
     // 0 0 0 0 0 0 0 0 0 1
-    
-    // should be completely accurate
+
+    // should be completely accurate - 1's on the diagonal
 
     REQUIRE(matrix[0][0] == 1);
     REQUIRE(matrix[0][1] == 0);

@@ -22,7 +22,7 @@ namespace naivebayes {
      * @param image to be predicted
      * @return predicted class of the image_
      */
-    int ReturnPredictedClass(Image &image);
+    int ReturnPredictedClass(const Image &image);
 
     /**
      * Method that calculates the accuracy of the predictor.

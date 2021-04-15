@@ -208,7 +208,7 @@ namespace naivebayes {
       REQUIRE(model.GetFeatureProb().size() == 5); // 4d vector with outermost size 5
       REQUIRE(model.GetFeatureCount().size() == 5);// 4d vector with outermost size 5
 
-      for (double &i : model.GetPriorProb()) {
+      for (double i : model.GetPriorProb()) {
         REQUIRE(i == -2.30259);
       }
 

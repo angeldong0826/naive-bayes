@@ -72,14 +72,14 @@ namespace naivebayes {
      * 
      * @return images vector
      */
-    std::vector<Image> GetImages() const;
+    const std::vector<Image> &GetImages() const;
 
     /**
      * Getter method to get labels.
      * 
      * @return labels vector
      */
-    std::vector<size_t> GetLabels() const;
+    const std::vector<size_t> &GetLabels() const;
 
     /**
      * Getter method for image size.
@@ -93,21 +93,21 @@ namespace naivebayes {
      * 
      * @return vector of prior probabilities
      */
-    std::vector<double> GetPriorProb() const;
+    const std::vector<double> &GetPriorProb() const;
 
     /**
      * Getter method for feature probabilities.
      * 
      * @return 4d vector of feature probabilities
      */
-    std::vector<std::vector<std::vector<std::vector<double>>>> GetFeatureProb() const;
+    const std::vector<std::vector<std::vector<std::vector<double>>>> &GetFeatureProb() const;
 
     /**
      * Getter method for feature counts.
      * 
      * @return 4d vector of feature counts
      */
-    std::vector<std::vector<std::vector<std::vector<size_t>>>> GetFeatureCount() const;
+    const std::vector<std::vector<std::vector<std::vector<size_t>>>> &GetFeatureCount() const;
     
   private:
     std::vector<Image> images_; // vector of individual training images

@@ -6,7 +6,7 @@ namespace naivebayes {
 
   Classifier::Classifier(Model &model) : model_(model) {}
 
-  int Classifier::ReturnPredictedClass(Image &image) {
+  int Classifier::ReturnPredictedClass(const Image &image) {
     likelihood_.resize(kNumClasses, 0);
 
     for (size_t num = 0; num < likelihood_.size(); num++) {

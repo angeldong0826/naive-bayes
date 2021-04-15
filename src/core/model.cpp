@@ -138,11 +138,11 @@ namespace naivebayes {
     return is;
   }
 
-  std::vector<Image> Model::GetImages() const {
+  const std::vector<Image> &Model::GetImages() const {
     return images_;
   }
 
-  std::vector<size_t> Model::GetLabels() const {
+  const std::vector<size_t> &Model::GetLabels() const {
     return labels_;
   }
 
@@ -150,15 +150,15 @@ namespace naivebayes {
     return image_size_;
   }
   
-  std::vector<double> Model::GetPriorProb() const {
+  const std::vector<double> &Model::GetPriorProb() const {
     return prior_prob_;
   }
   
-  std::vector<std::vector<std::vector<std::vector<double>>>> Model::GetFeatureProb() const {
+  const std::vector<std::vector<std::vector<std::vector<double>>>> &Model::GetFeatureProb() const {
     return feature_prob_;
   }
   
-  std::vector<std::vector<std::vector<std::vector<size_t>>>> Model::GetFeatureCount() const {
+  const std::vector<std::vector<std::vector<std::vector<size_t>>>> &Model::GetFeatureCount() const {
     return feature_count_;
   }
 
