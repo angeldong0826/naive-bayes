@@ -1,19 +1,20 @@
 #pragma once
 
 #include "cinder/gl/gl.h"
+#include "core/image.h"
 
 namespace naivebayes {
 
-namespace visualizer {
+  namespace visualizer {
 
-/**
+    /**
  * A sketchpad which will be displayed in the Cinder application and respond to
  * mouse events. Furthermore, the sketchpad can output its current state in the
- * same format as the Naive Bayes image data files.
+ * same format as the Naive Bayes image_ data files.
  */
-class Sketchpad {
- public:
-  /**
+    class Sketchpad {
+    public:
+      /**
    * Creates a sketchpad.
    * (Note that sketchpad pixels are larger than screen pixels.)
    *
@@ -26,15 +27,15 @@ class Sketchpad {
    * @param brush_radius        the maximum distance (measured in sketchpad
    *                            pixels) from the brush that will be shaded
    */
-  Sketchpad(const glm::vec2& top_left_corner, size_t num_pixels_per_side,
-            double sketchpad_size, double brush_radius = 1.15);
+      Sketchpad(const glm::vec2 &top_left_corner, size_t num_pixels_per_side,
+                double sketchpad_size, double brush_radius = 0.8);
 
-  /**
+      /**
    * Displays the current state of the sketchpad in the Cinder application.
    */
-  void Draw() const;
+      void Draw() const;
 
-  /**
+      /**
    * Shades in the sketchpad pixels whose centers are within brush_radius units
    * of the brush's location. (One unit is equal to the length of one sketchpad
    * pixel.)
@@ -42,24 +43,26 @@ class Sketchpad {
    * @param brush_screen_coords the screen coordinates at which the brush is
    *           located
    */
-  void HandleBrush(const glm::vec2& brush_screen_coords);
+      void HandleBrush(const glm::vec2 &brush_screen_coords);
 
-  /**
+      /**
    * Set all of the sketchpad pixels to an unshaded state.
    */
-  void Clear();
+      void Clear();
 
- private:
-  glm::vec2 top_left_corner_;
+      Image image_;// instance of image to be used
 
-  size_t num_pixels_per_side_;
+    private:
+      glm::vec2 top_left_corner_;
 
-  /** Number of screen pixels in the width/height of one sketchpad pixel */
-  double pixel_side_length_;
+      size_t num_pixels_per_side_;
 
-  double brush_radius_;
-};
+      /** Number of screen pixels in the width/height of one sketchpad pixel */
+      double pixel_side_length_;
 
-}  // namespace visualizer
+      double brush_radius_;
+    };
 
-}  // namespace naivebayes
+  }// namespace visualizer
+
+}// namespace naivebayes

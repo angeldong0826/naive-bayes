@@ -40,7 +40,7 @@ FetchContent_Declare(
 FetchContent_GetProperties(catch2)
 if(NOT catch2_POPULATED)
     FetchContent_Populate(catch2)
-    add_library(catch2 INTERFACE)
+    add_library(catch2 INTERFACE tests/test_classifier.cpp)
     target_include_directories(catch2 INTERFACE ${catch2_SOURCE_DIR}/single_include)
 endif()
 
@@ -49,15 +49,19 @@ get_filename_component(APP_PATH "${CMAKE_CURRENT_SOURCE_DIR}/" ABSOLUTE)
 
 include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 
-list(APPEND CORE_SOURCE_FILES src/core/rename_this_file.cc)
+list(APPEND CORE_SOURCE_FILES 
+                            src/core/image.cpp
+                            src/core/model.cpp
+                            src/core/classifier.cpp)
 
 list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
                             src/visualizer/naive_bayes_app.cc
                             src/visualizer/sketchpad.cc)
 
-list(APPEND TEST_FILES tests/rename_this_test_file.cc)
+list(APPEND TEST_FILES tests/test_model.cc
+        tests/test_classifier.cpp)
 
-add_executable(train-model apps/train_model_main.cc ${CORE_SOURCE_FILES})
+add_executable(train-model apps/train_model_main.cc ${CORE_SOURCE_FILES} src/core/image.cpp include/core/image.h src/core/model.cpp include/core/model.h src/core/classifier.cpp include/core/classifier.h)
 target_include_directories(train-model PRIVATE include)
 
 ci_make_app(
